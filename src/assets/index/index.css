@@ -1,0 +1,32 @@
+#base {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    margin: 0px;
+}
+
+#header {
+    background-color: skyblue;
+    flex: 0 1 auto;
+    height: 150px;
+}
+#body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row;
+}
+#footer {
+    background-color: powderblue;
+    flex: 0 1 auto;
+    height: 100px;
+}
+
+#left-sidebar{
+    background-color: palegreen;
+    flex: 0 1 auto;
+    width: 300px;
+}
+#panel{
+    background-color: wheat;
+    flex: 1 1 auto;
+}

@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('assets', path='/index/index.css') }}">
+    <script src="{{ url_for('assets', path='htmx.org@1.9.4.js') }}"></script>
+</head>
+<body id="base">
+    <div id="header">
+        {% for header in headers %}
+            <div id="{{ header.id }}" class="{{ header.class }}">
+                {{ header.template }}
+            </div>
+        {% endfor %}
+    </div>
+    <div id="body">
+        <div id="left-sidebar">
+            {% for ls_element in body.ls_elements %}
+            <div id="{{ ls_element.id }}" class="{{ ls_element.class }}">
+                {{ ls_element.template }}
+            </div>
+            {% endfor %}
+        </div>
+        <div id="panel">
+        </div>
+    </div>
+    <div id="footer">
+        {% for footer in footers %}
+            <div id="{{ footer.id }}" class="{{ footer.class }}">
+                {{ footer.template }}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
