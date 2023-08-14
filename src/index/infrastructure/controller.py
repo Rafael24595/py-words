@@ -2,6 +2,8 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
+from index.configuration.ls_configuration import ls_configuration
+
 class controller_index():
 
     __router: APIRouter
@@ -24,9 +26,9 @@ class controller_index():
     async def _load_index(self, request: Request):
         headers = []
         footers = []
-        ls_elements = []
+        ls_conf = ls_configuration.get_instance()
         body = {
-            'ls_elements': ls_elements   
+            'ls_elements': ls_conf.json_elements()
         }
         context = { 'request': request, 'headers': headers, 'body': body, 'footers': footers }
         return self._templates.TemplateResponse("index.html", context)

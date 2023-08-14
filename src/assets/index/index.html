@@ -18,7 +18,7 @@
         <div id="left-sidebar">
             {% for ls_element in body.ls_elements %}
             <div id="{{ ls_element.id }}" class="{{ ls_element.class }}">
-                {{ ls_element.template }}
+                {{ ls_element.template|safe }}
             </div>
             {% endfor %}
         </div>
