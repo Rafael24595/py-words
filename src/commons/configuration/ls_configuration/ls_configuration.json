@@ -1,0 +1,17 @@
+{
+    "title": "Home",
+    "elements": [
+        {
+            "id": "rust-dictionary",
+            "clazz": "rust-dictionary",
+            "name": "rust-dictionary",
+            "api": "rust-dictionary"
+        },
+        {
+            "id": "clean-soup",
+            "clazz": "clean-soup",
+            "name": "clean-soup",
+            "api": "clean-soup"
+        }
+    ]
+}

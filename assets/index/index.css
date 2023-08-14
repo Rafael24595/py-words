@@ -21,11 +21,26 @@
     height: 100px;
 }
 
-#left-sidebar{
+#left-sidebar {
     background-color: palegreen;
     flex: 0 1 auto;
     width: 300px;
 }
+.l-sidebar-row {
+    background-color: aquamarine;
+    text-align: center;
+    font-weight: bold;
+    margin: 5px;
+}
+.l-sidebar-row-title {
+    display: inline-block;
+    cursor: pointer;
+}
+.l-sidebar-title {
+    background-color: coral;
+    text-align: center;
+}
+
 #panel{
     background-color: wheat;
     flex: 1 1 auto;
