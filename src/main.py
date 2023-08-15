@@ -4,8 +4,8 @@ import uvicorn
 from fastapi import FastAPI
 
 from commons.configuration.configurator import configurator
-from index.infrastructure.controller_index import controller_index 
-from app.infrastructure.controller_app import controller_app
+from infrastructure.index.controller_index import controller_index 
+from infrastructure.app.controller_app import controller_app
 
 app = FastAPI()
 
@@ -19,8 +19,9 @@ def init() -> None:
     
 def serve():
     ci = controller_index()
-    controller_app(ci)
+    ca = controller_app()
     app.include_router(ci.router())
+    app.include_router(ca.router())
     app.mount("/assets/static", StaticFiles(directory="assets"), name="assets")
     uvicorn.run(app, host='0.0.0.0', port=5000)
 

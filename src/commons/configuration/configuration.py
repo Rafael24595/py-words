@@ -1,9 +1,9 @@
-from commons.Optional import Optional
+from commons.optional import optional
 from .ls_configuration.ls_configuration import ls_configuration
 
 class configuration():
     
-    singleton: 'Optional[configuration]' = Optional.none()
+    singleton: 'optional[configuration]' = optional.none()
     
     left_sidebar: ls_configuration
     
@@ -11,7 +11,7 @@ class configuration():
     def intitilaize(cls) -> 'configuration':
         if cls.singleton.is_some():
             raise Exception("Configuration already initialized.")
-        cls.singleton = Optional.some(configuration())
+        cls.singleton = optional.some(configuration())
         return cls.singleton.unwrap()
     
     @classmethod

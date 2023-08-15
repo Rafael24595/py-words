@@ -1,10 +1,10 @@
 import json
-from commons.Optional import Optional
+from commons.optional import optional
 from .ls_element import ls_element
 
 class ls_configuration():
     
-    singleton: 'Optional[ls_configuration]' = Optional.none()
+    singleton: 'optional[ls_configuration]' = optional.none()
     
     _title: str = ""
     _elements: list[ls_element] = []
@@ -12,7 +12,7 @@ class ls_configuration():
     @classmethod
     def instance(cls) -> 'ls_configuration':
         if cls.singleton.is_none():
-            cls.singleton = Optional.some(cls.load())
+            cls.singleton = optional.some(cls.load())
         return cls.singleton.unwrap()
     
     @classmethod

@@ -2,7 +2,7 @@ from typing import TypeVar, Generic, List
 
 T = TypeVar('T')
 
-class Optional(Generic[T]):
+class optional(Generic[T]):
     
     _element: T
     
@@ -10,12 +10,12 @@ class Optional(Generic[T]):
         self._element = element
     
     @classmethod
-    def some(cls, element: T) -> 'Optional[T]':
-        return Optional(element)
+    def some(cls, element: T) -> 'optional[T]':
+        return optional(element)
     
     @classmethod
-    def none(cls) -> 'Optional[T]':
-        return Optional(None)
+    def none(cls) -> 'optional[T]':
+        return optional(None)
     
     def is_some(self) -> bool:
         return self._element != None
