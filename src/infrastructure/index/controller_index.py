@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 
-from infrastructure.index.builder.builder_index import builder_index
+from infrastructure.index.builder.ui_builder_index import ui_builder_index
 
 BASE: str = "index"
 
@@ -24,4 +24,4 @@ class controller_index():
         return self.__router
         
     async def _load_index(self, request: Request):
-        return builder_index.build(request)
+        return ui_builder_index.build(request)

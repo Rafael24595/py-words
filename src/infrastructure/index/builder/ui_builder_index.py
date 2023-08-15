@@ -5,7 +5,7 @@ from commons.configuration.configuration import configuration
 
 BASE: str = "index"
 
-class builder_index():
+class ui_builder_index():
     
     _templates = Jinja2Templates(directory="assets/index")
     

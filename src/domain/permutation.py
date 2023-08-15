@@ -1,3 +1,5 @@
+KEY_BASE: str = "PERMUTATION"
+
 class permutation():
     
     _base: str
@@ -12,3 +14,12 @@ class permutation():
     
     def get_result(self) -> list[str]:
         return self._result
+    
+    def key(self) -> str:
+        return KEY_BASE + "#" + self._base
+    
+    def struct(self) -> str:
+        return {
+            "base": self._base,
+            "result": self._result
+        }

@@ -15,5 +15,7 @@ class configurator():
     @classmethod
     def _define_dependencies(cls):
         dc: dependency_container = dependency_container.instance()
+        cache_instance: dictionary = dependency_dictionary.find_cache(None)
         dictionary_instance: dictionary = dependency_dictionary.find_dictionary(None)
+        dc.set_cache(cache_instance)
         dc.set_dictionary(dictionary_instance)
