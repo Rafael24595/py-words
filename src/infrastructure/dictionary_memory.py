@@ -9,5 +9,8 @@ class dictionary_memory(dictionary):
     async def generate_permutation(self) -> permutation:
         return permutation("XYZ", ["XYZ", "YXZ", "ZXY", "XZY", "YZX", "ZYX"]) 
     
+    async def generate_target_permutation(self, target: str) -> permutation:
+        return permutation(target, ["CALCULATE"]) 
+    
     async def find_random(self, count: int) -> list[str]:
         return super().find_random(count)

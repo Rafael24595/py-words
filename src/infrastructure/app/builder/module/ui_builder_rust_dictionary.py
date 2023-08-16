@@ -24,11 +24,17 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
         i_cache: cache = container.get_cache().unwrap()
         i_permutation: permutation = await i_dictionary.generate_permutation()
         await i_cache.put(i_permutation.key(), i_permutation.struct())
-        context = { 'request': request, 'base': BASE, 'action': 'result', 'reference': i_permutation.key(), 'permutation': i_permutation.get_base() }
+        permutation = {
+            'target': i_permutation.get_base(),
+            'reference': i_permutation.key()
+        }
+        context = { 'request': request, 'base': BASE, 'action': 'result', 'permutation': permutation }
         return self._templates.TemplateResponse("index.html", context)
 
     async def execute(self, action: str, request: Request):
-        return await self._get_result(request)
+        match(action):
+            case "result":
+                return await self._get_result(request)
     
     async def _get_result(self, request: Request):
         container: dependency_container = dependency_container.instance()
@@ -37,6 +43,7 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
         cached: optional[str] = await i_cache.get(body["reference"])
         if cached.is_some():
             return str(cached.unwrap())
+        target = body["reference"]
         i_dictionary: dictionary = container.get_dictionary().unwrap()
-        i_permutation: permutation = await i_dictionary.generate_permutation()
+        i_permutation: permutation = await i_dictionary.generate_target_permutation(target)
         return "Not cached! -> " + str(i_permutation.struct())

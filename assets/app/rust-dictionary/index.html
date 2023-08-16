@@ -1,8 +1,9 @@
 <div>
     <h1> {{ base }} </h1>
     <form hx-post="/contacts">
-        <input name="reference" type="hidden" value="{{ reference }}">  
-        <p hx-post="/app/{{ base }}/{{ action }}" hx-target="#result" hx-ext='json-enc'> {{ permutation }} </p>
+        <input name="target" type="hidden" value="{{ permutation.target }}">
+        <input name="reference" type="hidden" value="{{ permutation.reference }}">
+        <p hx-post="/app/{{ base }}/{{ action }}" hx-target="#result" hx-ext='json-enc'> {{ permutation.target }} </p>
     </form>
     <p id="result">- Empty -</p>
 </div>
