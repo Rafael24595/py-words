@@ -1,9 +1,33 @@
-<div>
-    <h1> {{ base }} </h1>
-    <form hx-post="/contacts">
-        <input name="target" type="hidden" value="{{ permutation.target }}">
-        <input name="reference" type="hidden" value="{{ permutation.reference }}">
-        <p hx-post="/app/{{ base }}/{{ action }}" hx-target="#result" hx-ext='json-enc'> {{ permutation.target }} </p>
-    </form>
-    <p id="result">- Empty -</p>
+<div id="app-container">
+    <link rel="stylesheet" href="{{ url_for('assets', path='/app/rust-dictionary/index.css') }}">
+    <h1 id="app-title"> {{ base }} </h1>
+    <div id="play-area">
+        <form id="play-area-left">
+            <div id="play-area-left-top">
+                <input name="target" type="hidden" value="{{ permutation.target }}">
+                <input name="reference" type="hidden" value="{{ permutation.reference }}">
+                <h3><span><b>Proposed permutation string: </b></span></h3>
+                <div id="permutation-container">
+                    <button id="permutation-left"></button>
+                    <p id="permutation-center"> {{ permutation.target }} </p>
+                    <button hx-post="/app/{{ base }}" hx-target="#added-words-container" id="permutation-right">-</button>
+                </div>
+                <div id="add-word-container">
+                    <label for="add-word">
+                        <p>Add word:</p>
+                        <input name="add-word" type="text">
+                    </label>
+                    <button hx-post="/app/{{ base }}/add-word" hx-target="#added-words-container" hx-ext='json-enc'>+</button>
+                </div>
+            </div>
+            <div id="play-area-left-bottom">
+                <h3>Words:</h3>
+                <div id="added-words-container"></div>
+                <button id="valide-button" hx-post="/app/{{ base }}/{{ action }}" hx-target="#result" hx-ext='json-enc'>Valide</button>
+            </div>
+        </form>
+        <div id="play-area-right">
+            <p id="result">- Empty -</p>
+        </div>
+    </div>
 </div>

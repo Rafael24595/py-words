@@ -1,0 +1,97 @@
+#app-container {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+}
+
+#app-title {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+#play-area {
+    margin: 30px;
+    padding: 10px;
+    flex: 1 1 auto;
+    display: flex;
+    background-color: violet;
+}
+
+#play-area-left {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    background-color: antiquewhite;
+}
+
+#play-area-right {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    background-color: aquamarine;
+}
+
+#permutation-container {
+    display: flex;
+    background-color: blueviolet;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+#permutation-left {
+    visibility: hidden;
+    margin-right: auto;
+}
+
+#permutation-center {
+    margin: 10px;
+    text-decoration: underline;
+}
+
+#permutation-right {
+    margin-left: auto;
+}
+
+#play-area-left-bottom {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#added-words-container {
+    background-color: cadetblue;
+    flex: 1 1 auto;
+    margin: 10px;
+    height: 0px;
+    overflow-y: scroll;
+}
+
+.added-word-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    padding: 10px;
+    background-color: yellow;
+}
+
+#added-word-container-left {
+    visibility: hidden;
+    margin-right: auto;
+}
+
+#added-word-container-center {
+    margin: 5px;
+}
+
+#added-word-container-right {
+    margin-left: auto;
+}
+
+#valide-button {
+    margin: 10px;
+}

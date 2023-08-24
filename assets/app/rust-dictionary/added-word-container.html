@@ -1,0 +1,8 @@
+{% for word in words %}
+    <div class="added-word-container">
+        <input name="added-word" type="hidden" value="{{ word }}">
+        <button id="added-word-container-left"> - </button>
+        <p id="added-word-container-center"> {{ word }} </p>
+        <button id="added-word-container-right" hx-post="/app/{{ base }}/remove-word?word={{ word }}" hx-target="#added-words-container" hx-ext='json-enc'> - </button>
+    </div>
+{% endfor %}
