@@ -6,7 +6,7 @@
             <div id="play-area-left-top">
                 <input name="target" type="hidden" value="{{ permutation.target }}">
                 <input name="reference" type="hidden" value="{{ permutation.reference }}">
-                <h3><span><b>Proposed permutation string: </b></span></h3>
+                <h3><b>Proposed permutation string: </b></h3>
                 <div id="permutation-container">
                     <button id="permutation-left"></button>
                     <p id="permutation-center"> {{ permutation.target }} </p>
@@ -27,7 +27,31 @@
             </div>
         </form>
         <div id="play-area-right">
-            <p id="result">- Empty -</p>
+            <form id="play-area-right-top">
+                <div id="clues-title">
+                    <h3><b>Clues </b></h3>
+                    <button id="new-clue" hx-post="/app/{{ base }}/new-clue" hx-target="#clues-container" hx-ext='json-enc'> + </button>
+                    <h3><b>: </b></h3>
+                </div>
+                <div id="clues-container">
+
+                </div>
+            </form>
+            <div id="play-area-right-bottom">
+                <div id="resume-container">
+                    <h3><b>Resume: </b></h3>
+                    <div id="resume-items-container">
+                        <p id="result">- Empty -</p>
+                    </div>
+                </div>
+                <div id="score-container">
+                    <p>
+                        <span>Score: </span>
+                        <span id="score-value">0</span>
+                        <span> pt.</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

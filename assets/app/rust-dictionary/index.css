@@ -33,6 +33,39 @@
     background-color: aquamarine;
 }
 
+#play-area-right-top {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#clues-title {
+    display: flex;
+}
+
+#new-clue {
+    align-self: center;
+    margin: 10px;
+}
+
+#clues-container {
+    flex: 1 1 auto;
+    background-color: azure;
+    margin: 10px;
+    height: 0px;
+    overflow-y: scroll;
+}
+
+#play-area-right-bottom {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#resume-container {
+    flex: 1 1 auto;
+}
+
 #permutation-container {
     display: flex;
     background-color: blueviolet;
@@ -60,6 +93,10 @@
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+}
+
+#update-score {
+    display: none;
 }
 
 #added-words-container {

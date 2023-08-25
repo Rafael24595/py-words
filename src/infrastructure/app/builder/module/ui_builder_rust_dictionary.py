@@ -36,6 +36,10 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
                 return await self._build_added_words(request)
             case "remove-word":
                 return await self._build_remove_words(request)
+            case "new-clue":
+                return await self._build_new_clue(request)
+            case "update-score":
+                return await self._update_score(request)
     
     async def _build_result(self, request: Request):
         body: Any = await request.json()
@@ -44,32 +48,54 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
     
     async def _build_added_words(self, request: Request):
         body: map[str,Any] = await request.json()
-        added_words_raw = body.get('added-word')
-        added_words = []
-        if isinstance(added_words_raw, list):
-            added_words = added_words_raw
-        elif not added_words_raw == None:
-            added_words = [added_words_raw]
+        words: list[str] = await self._added_words(request)
         add_word_raw = body.get('add-word')
-        words: list[str] = added_words
-        if add_word_raw not in added_words and add_word_raw != None:
+        if add_word_raw not in words and add_word_raw != None:
             words = [add_word_raw] + words
         context = { 'request': request, 'base': BASE, 'words':  words}
         return self._templates.TemplateResponse("added-word-container.html", context)
     
     async def _build_remove_words(self, request: Request):
-        body: map[str,Any] = await request.json()
+        words: list[str] = await self._added_words(request)
         word = request.query_params.get("word")
-        added_words_raw = body.get('added-word')
-        words = []
-        if isinstance(added_words_raw, list):
-            words = added_words_raw
-        elif not added_words_raw == None:
-            words = [added_words_raw]
         if word in words:
             words.remove(word)
         context = { 'request': request, 'base': BASE, 'words':  words}
         return self._templates.TemplateResponse("added-word-container.html", context)
+    
+    async def _added_words(self, request: Request) -> list[str]:
+        body: map[str,Any] = await request.json()
+        words = []
+        added_words_raw = body.get('added-word')
+        if isinstance(added_words_raw, list):
+            words = added_words_raw
+        elif not added_words_raw == None:
+            words = [added_words_raw]
+        return words
+    
+    async def _build_new_clue(self, request: Request):
+        clues: list[str] = await self._added_clues(request)
+        clue: list[str] = await self._find_clue(clues)
+        clues = clue + clues
+        context = { 'request': request, 'base': BASE, 'clues':  clues}
+        return self._templates.TemplateResponse("added-clues-container.html", context)
+    
+    async def _find_clue(self, clues: list[str]) -> list[str]:
+        return ["CLUE-1"]
+    
+    async def _update_score(self, request: Request):
+        clues: list[str] = await self._added_clues(request)
+        return str(len(clues) * 100 * -1)
+    
+    async def _added_clues(self, request: Request):
+        body: map[str,Any] = await request.json()
+        added_clues_raw = body.get('added-clue')
+        clues: list[str] = []
+        if isinstance(added_clues_raw, list):
+            clues = added_clues_raw
+        elif not added_clues_raw == None:
+            clues = [added_clues_raw]
+        return clues
     
     async def _generate_permutation(self) -> permutation:
         container: dependency_container = dependency_container.instance()
