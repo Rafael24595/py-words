@@ -7,4 +7,5 @@
 <button id="update-score" hx-post="/app/{{ base }}/update-score" hx-target="#score-value" hx-ext='json-enc'> - </button>
 <script>
     document.getElementById("update-score").click();
+    scrollToLast("clue-container");
 </script>

@@ -7,7 +7,7 @@ class dictionary_memory(dictionary):
         pass
     
     async def generate_permutation(self) -> permutation:
-        return permutation("XYZ", ["XYZ", "YXZ", "ZXY", "XZY", "YZX", "ZYX"]) 
+        return permutation("XAYZ", ["XYZ", "YXZ", "ZXY", "XZY", "YZX", "ZYX"]) 
     
     async def generate_target_permutation(self, target: str) -> permutation:
         return permutation(target, ["CALCULATE"]) 

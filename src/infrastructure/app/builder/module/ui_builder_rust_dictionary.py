@@ -6,6 +6,7 @@ from fastapi import Request
 from commons.configuration.dependency.dependency_container import dependency_container
 from commons.optional import optional
 from domain.cache import cache
+from domain.clue import clue
 from domain.dictionary import dictionary
 from domain.permutation import permutation
 from infrastructure.app.builder.module.ui_builder_module_app import ui_builder_module_app
@@ -42,8 +43,7 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
                 return await self._update_score(request)
     
     async def _build_result(self, request: Request):
-        body: Any = await request.json()
-        i_permutation: permutation = await self._find_result(body)
+        i_permutation: permutation = await self._find_result(request)
         return str(i_permutation.struct())
     
     async def _build_added_words(self, request: Request):
@@ -75,17 +75,25 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
     
     async def _build_new_clue(self, request: Request):
         clues: list[str] = await self._added_clues(request)
-        clue: list[str] = await self._find_clue(clues)
-        clues = clue + clues
-        context = { 'request': request, 'base': BASE, 'clues':  clues}
+        clue: list[str] = await self._find_clue(request, clues)
+        clues = clues + clue
+        context = { 'request': request, 'base': BASE, 'clues': clues}
         return self._templates.TemplateResponse("added-clues-container.html", context)
     
-    async def _find_clue(self, clues: list[str]) -> list[str]:
-        return ["CLUE-1"]
+    async def _find_clue(self, request: Request, clues: list[str]) -> list[str]:
+        i_permutation: permutation = await self._find_result(request)
+        new_clues: list[clue] = i_permutation.find_different_clues(clues)
+        if len(new_clues) > 0:
+            return [new_clues[0].clue()]
+        return []
     
     async def _update_score(self, request: Request):
         clues: list[str] = await self._added_clues(request)
-        return str(len(clues) * 100 * -1)
+        score: int = 0
+        i_permutation: permutation = await self._find_result(request)
+        for cl in i_permutation.find_clues(clues):
+            score = score - cl.score()
+        return str(score)
     
     async def _added_clues(self, request: Request):
         body: map[str,Any] = await request.json()
@@ -105,7 +113,8 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
         await i_cache.put(i_permutation.key(), i_permutation.struct())
         return i_permutation
     
-    async def _find_result(self, body: Any):
+    async def _find_result(self, request: Request) -> permutation:
+        body: Any = await request.json()
         container: dependency_container = dependency_container.instance()
         reference = body["reference"]
         i_cache: cache = container.get_cache().unwrap()

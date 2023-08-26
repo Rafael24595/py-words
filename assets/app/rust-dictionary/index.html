@@ -1,8 +1,8 @@
 <div id="app-container">
     <link rel="stylesheet" href="{{ url_for('assets', path='/app/rust-dictionary/index.css') }}">
     <h1 id="app-title"> {{ base }} </h1>
-    <div id="play-area">
-        <form id="play-area-left">
+    <form id="play-area">
+        <div id="play-area-left">
             <div id="play-area-left-top">
                 <input name="target" type="hidden" value="{{ permutation.target }}">
                 <input name="reference" type="hidden" value="{{ permutation.reference }}">
@@ -25,18 +25,16 @@
                 <div id="added-words-container"></div>
                 <button id="valide-button" hx-post="/app/{{ base }}/{{ action }}" hx-target="#result" hx-ext='json-enc'>Valide</button>
             </div>
-        </form>
+        </div>
         <div id="play-area-right">
-            <form id="play-area-right-top">
+            <div id="play-area-right-top">
                 <div id="clues-title">
                     <h3><b>Clues </b></h3>
                     <button id="new-clue" hx-post="/app/{{ base }}/new-clue" hx-target="#clues-container" hx-ext='json-enc'> + </button>
                     <h3><b>: </b></h3>
                 </div>
-                <div id="clues-container">
-
-                </div>
-            </form>
+                <div id="clues-container"></div>
+            </div>
             <div id="play-area-right-bottom">
                 <div id="resume-container">
                     <h3><b>Resume: </b></h3>
@@ -46,12 +44,12 @@
                 </div>
                 <div id="score-container">
                     <p>
-                        <span>Score: </span>
+                        <span><b>Score:</b> </span>
                         <span id="score-value">0</span>
                         <span> pt.</span>
                     </p>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
