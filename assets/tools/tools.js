@@ -3,3 +3,7 @@ function scrollToLast(id, position) {
     position = position == undefined ? cluesElement.length - 1 : position;
     cluesElement[position].scrollIntoView();
 }
+
+function click(id) {
+    document.getElementById(id).click();
+}

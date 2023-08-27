@@ -1,6 +1,6 @@
 <div id="app-container">
     <link rel="stylesheet" href="{{ url_for('assets', path='/app/rust-dictionary/index.css') }}">
-    <h1 id="app-title"> {{ base }} </h1>
+    <h1 id="app-title"> {{ app }} </h1>
     <div id="void-container"></div>
     <form id="play-area">
         <div id="play-area-left">
@@ -11,27 +11,27 @@
                 <div id="permutation-container">
                     <button id="permutation-left"></button>
                     <p id="permutation-center"> {{ permutation.target }} </p>
-                    <button hx-post="/app/{{ base }}" hx-target="#added-words-container" id="permutation-right">-</button>
+                    <button hx-get="/app/{{ app }}" hx-target="#panel" id="permutation-right">-</button>
                 </div>
                 <div id="add-word-container">
                     <label for="add-word">
-                        <p>Add word:</p>
-                        <input name="add-word" type="text">
+                        <h3>Add word:</h3>
+                        <input id="add-word" name="add-word" type="text">
                     </label>
-                    <button hx-post="/app/{{ base }}/add-word" hx-target="#added-words-container" hx-ext='json-enc'>+</button>
+                    <button hx-post="/app/{{ app }}/{{ action_add_word }}" hx-target="#added-words-container" hx-ext='json-enc'>+</button>
                 </div>
             </div>
             <div id="play-area-left-bottom">
                 <h3>Words:</h3>
                 <div id="added-words-container"></div>
-                <button id="valide-button" hx-post="/app/{{ base }}/resolve" hx-target="#result" hx-ext='json-enc'>Valide</button>
+                <button id="valide-button" hx-post="/app/{{ app }}/{{ action_resolve }}" hx-target="#result" hx-ext='json-enc'>Valide</button>
             </div>
         </div>
         <div id="play-area-right">
             <div id="play-area-right-top">
                 <div id="clues-title">
                     <h3><b>Clues </b></h3>
-                    <button id="new-clue" hx-post="/app/{{ base }}/new-clue" hx-target="#clues-container" hx-ext='json-enc'> + </button>
+                    <button id="new-clue" hx-post="/app/{{ app }}/{{ action_new_clue }}" hx-target="#clues-container" hx-ext='json-enc'> + </button>
                     <h3><b>: </b></h3>
                 </div>
                 <div id="clues-container"></div>
@@ -40,17 +40,21 @@
                 <h3><b>Resume: </b></h3>
                 <div id="resume-container">
                     <div id="resume-items-container">
-                        <p id="result">- Empty -</p>
+                        <p id="result"></p>
                     </div>
                 </div>
                 <div id="score-container">
                     <p>
                         <span><b>Score:</b> </span>
-                        <span id="score-value"><b>0</b></span>
+                        <span id="score-value"></span>
                         <span> pt.</span>
                     </p>
+                    <button id="update-score" hx-post="/app/{{ app }}/{{ action_update_score }}" hx-target="#score-value" hx-ext='json-enc'> - </button>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<script>
+    click("update-score");
+</script>
