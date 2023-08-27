@@ -1,4 +1,4 @@
-from fastapi import Request
+from fastapi import Request, Response
 from commons.optional import optional
 from infrastructure.app.builder.module.ui_builder_module_app import ui_builder_module_app
 from infrastructure.app.builder.module.ui_builder_clean_soup import ui_builder_clean_soup
@@ -22,10 +22,10 @@ class ui_builder_app():
         return ui_builder_index.build(request)
     
     @classmethod
-    async def execute(cls, code: str, action: str, request: Request):
+    async def execute(cls, code: str, action: str, request: Request, response: Response):
         builder: optional[ui_builder_module_app] = cls._find_builder(code)
         if builder.is_some():
-            return await builder.unwrap().execute(action, request)
+            return await builder.unwrap().execute(action, request, response)
         return ui_builder_index.build(request)
     
     @classmethod

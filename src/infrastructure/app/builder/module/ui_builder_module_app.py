@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from fastapi import Request
+from fastapi import Request, Response
 
 class ui_builder_module_app(ABC):
 
@@ -9,5 +9,5 @@ class ui_builder_module_app(ABC):
         pass
 
     @abstractmethod
-    async def execute(self, action: str, request: Request):
+    async def execute(self, action: str, request: Request, response: Response):
         pass

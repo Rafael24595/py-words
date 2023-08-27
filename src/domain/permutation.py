@@ -1,5 +1,6 @@
 from domain.clue import clue
 from domain.clues import clues
+from domain.permutation_result import permutation_result
 
 KEY_BASE: str = "PERMUTATION"
 
@@ -29,6 +30,17 @@ class permutation():
     
     def get_result(self) -> list[str]:
         return self._result
+    
+    def evalue_result(self, words: list[str]) -> permutation_result:
+        found: list[str] = []
+        forgotten: list[str] = self._result.copy()
+        mistaked: list[str] = words.copy()
+        for word in self._result:
+            if word in words:
+                found.append(word)
+                forgotten.remove(word)
+                mistaked.remove(word)
+        return permutation_result(found, forgotten, mistaked)
     
     def find_different_clues(self, clues: list[str]) -> list[clue]:
         return self._clues.filter(clues, True)

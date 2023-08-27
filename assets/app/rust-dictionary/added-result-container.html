@@ -1,0 +1,11 @@
+{% for message in messages %}
+    <div class="result-container">
+        <input name="added-result" type="hidden" value="{{ message }}">
+        <p> {{ message }} </p>
+    </div>
+{% endfor %}
+<input name="finished" type="hidden" value="true">
+<button id="resolve-score" hx-post="/app/{{ base }}/resolve-score" hx-target="#score-value" hx-ext='json-enc'> - </button>
+<script>
+    document.getElementById("resolve-score").click();
+</script>

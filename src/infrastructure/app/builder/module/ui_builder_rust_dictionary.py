@@ -1,7 +1,7 @@
 from typing import Any
 from fastapi.templating import Jinja2Templates
 
-from fastapi import Request
+from fastapi import Request, Response
 
 from commons.configuration.dependency.dependency_container import dependency_container
 from commons.optional import optional
@@ -9,6 +9,7 @@ from domain.cache import cache
 from domain.clue import clue
 from domain.dictionary import dictionary
 from domain.permutation import permutation
+from domain.permutation_result import permutation_result
 from infrastructure.app.builder.module.ui_builder_module_app import ui_builder_module_app
 
 BASE: str = "rust-dictionary"
@@ -29,22 +30,47 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
         context = { 'request': request, 'base': BASE, 'action': 'result', 'permutation': j_permutation }
         return self._templates.TemplateResponse("index.html", context)
 
-    async def execute(self, action: str, request: Request):
+    async def execute(self, action: str, request: Request, response: Response):
         match(action):
-            case "result":
-                return await self._build_result(request)
+            case "resolve":
+                if not await self._is_finished(request):
+                    return await self._build_result(request)
+                return self._cancel_request(response)
             case "add-word":
-                return await self._build_added_words(request)
+                if not await self._is_finished(request):
+                    return await self._build_added_words(request)
+                return self._cancel_request(response)
             case "remove-word":
-                return await self._build_remove_words(request)
+                if not await self._is_finished(request):
+                    return await self._build_remove_words(request)
+                return self._cancel_request(response)
             case "new-clue":
-                return await self._build_new_clue(request)
+                if not await self._is_finished(request):
+                    return await self._build_new_clue(request)
+                return self._cancel_request(response)
             case "update-score":
-                return await self._update_score(request)
+                if not await self._is_finished(request):
+                    return await self._update_score(request, False)
+                return self._cancel_request(response)
+            case "resolve-score":
+                return await self._update_score(request, True)          
     
     async def _build_result(self, request: Request):
         i_permutation: permutation = await self._find_result(request)
-        return str(i_permutation.struct())
+        result: permutation_result = await self._permutation_result(request)
+        clues: list[str] = await self._added_clues(request)
+        messages: list[str] = []
+        messages.append("Found words " + str(len(result.found())) + " of " + str(len(i_permutation.get_result())) + ": " + str(result.found()))
+        messages.append("Forgotten words " + str(len(result.forgotten())) + " of " + str(len(i_permutation.get_result())) + ": " + str(result.forgotten()))
+        messages.append("Mistaked words " + str(len(result.mistaked())) + ": " + str(result.mistaked()))
+        messages.append("Clues used: " + str(len(clues)))
+        context = { 'request': request, 'base': BASE, 'messages':  messages}
+        return self._templates.TemplateResponse("added-result-container.html", context)
+    
+    async def _permutation_result(self, request: Request) -> permutation_result:
+        i_permutation: permutation = await self._find_result(request)
+        words: list[str] = await self._added_words(request)
+        return i_permutation.evalue_result(words)
     
     async def _build_added_words(self, request: Request):
         body: map[str,Any] = await request.json()
@@ -87,13 +113,25 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
             return [new_clues[0].clue()]
         return []
     
-    async def _update_score(self, request: Request):
+    async def _update_score(self, request: Request, resolve: bool) -> str:
+        score: int = await self._calculate_score(request, resolve)
+        status: str = "failed"
+        if score > 0:
+            status = "successed"
+        context = { 'request': request, 'score': str(score), 'status': status}
+        return self._templates.TemplateResponse("score-container.html", context)
+    
+    async def _calculate_score(self, request: Request, resolve: bool) -> int:
         clues: list[str] = await self._added_clues(request)
         score: int = 0
         i_permutation: permutation = await self._find_result(request)
         for cl in i_permutation.find_clues(clues):
             score = score - cl.score()
-        return str(score)
+        if resolve:
+            result: permutation_result = await self._permutation_result(request)
+            score = score + len(result.found()) * 50
+            score = score + len(result.mistaked()) * 100 * -1
+        return score
     
     async def _added_clues(self, request: Request):
         body: map[str,Any] = await request.json()
@@ -116,12 +154,21 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
     async def _find_result(self, request: Request) -> permutation:
         body: Any = await request.json()
         container: dependency_container = dependency_container.instance()
-        reference = body["reference"]
+        reference = body.get("reference")
         i_cache: cache = container.get_cache().unwrap()
         cached: optional[Any] = await i_cache.get(reference)
         if cached.is_some():
             return permutation(cached.unwrap()["base"], cached.unwrap()["result"])
-        target = body["target"]
+        target = body.get("target")
         i_dictionary: dictionary = container.get_dictionary().unwrap()
         i_permutation: permutation = await i_dictionary.generate_target_permutation(target)
         return i_permutation
+    
+    async def _is_finished(self, request: Request) -> bool:
+        body: Any = await request.json()
+        finished = body.get("finished")
+        return finished is not None and finished
+    
+    def _cancel_request(self, response: Response) -> str:
+        response.headers["HX-Retarget"] = "#void-container"
+        return ""

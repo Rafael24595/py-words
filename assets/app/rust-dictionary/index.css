@@ -11,6 +11,10 @@
     margin-bottom: 0px;
 }
 
+#void-container {
+    display: none;
+}
+
 #play-area {
     margin: 30px;
     padding: 10px;
@@ -65,6 +69,9 @@
 
 #resume-container {
     flex: 1 1 auto;
+    background-color: azure;
+    margin: 10px;
+    height: 0px;
 }
 
 #permutation-container {
@@ -96,7 +103,7 @@
     flex-direction: column;
 }
 
-#update-score {
+#update-score, #resolve-score {
     display: none;
 }
 
@@ -132,4 +139,12 @@
 
 #valide-button {
     margin: 10px;
+}
+
+.successed {
+    color: green;
+}
+
+.failed {
+    color: red;
 }
