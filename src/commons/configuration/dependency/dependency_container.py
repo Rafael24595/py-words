@@ -1,6 +1,7 @@
 from commons.optional import optional
 from domain.cache import cache
 from domain.dictionary import dictionary
+from domain.soup import soup
 
 class dependency_container:
     
@@ -8,6 +9,7 @@ class dependency_container:
     
     _cache: optional[cache]
     _dictionary: optional[dictionary]
+    _soup: optional[soup]
     
     def __init__(self) -> None:
         self._dictionary = optional.none()
@@ -29,3 +31,9 @@ class dependency_container:
     
     def set_dictionary(self, instance: dictionary) -> None:
         self._dictionary = optional.some(instance)
+        
+    def get_soup(self) -> optional[soup]:
+        return self._soup
+    
+    def set_soup(self, instance: soup) -> None:
+        self._soup = optional.some(instance)

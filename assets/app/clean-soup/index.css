@@ -1,0 +1,6 @@
+.cell-container {
+    display: inline-block;
+    width: 15px;
+    height: 20px;
+    text-align: center;
+}
