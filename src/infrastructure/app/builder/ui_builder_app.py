@@ -11,22 +11,22 @@ class ui_builder_app():
     __ui_builder_rust_dictionary: ui_builder_rust_dictionary = ui_builder_rust_dictionary()
         
     @classmethod
-    async def build(cls, code: str, request: Request):
-        return await cls._build_module(code, request)
+    async def build(cls, code: str, request: Request, response: Response):
+        return await cls._build_module(code, request, response)
         
     @classmethod
-    async def _build_module(cls, code: str, request: Request):
+    async def _build_module(cls, code: str, request: Request, response: Response):
         builder: optional[ui_builder_module_app] = cls._find_builder(code)
         if builder.is_some():
-            return await builder.unwrap().build(request)
-        return ui_builder_index.build(request)
+            return await builder.unwrap().build(request, response)
+        return ui_builder_index.build(request, response)
     
     @classmethod
     async def execute(cls, code: str, action: str, request: Request, response: Response):
         builder: optional[ui_builder_module_app] = cls._find_builder(code)
         if builder.is_some():
             return await builder.unwrap().execute(action, request, response)
-        return ui_builder_index.build(request)
+        return ui_builder_index.build(request, response)
     
     @classmethod
     def _find_builder(cls, code: str) -> optional[ui_builder_module_app]:

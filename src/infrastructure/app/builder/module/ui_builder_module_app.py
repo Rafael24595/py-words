@@ -5,7 +5,7 @@ from fastapi import Request, Response
 class ui_builder_module_app(ABC):
 
     @abstractmethod
-    async def build(self, request: Request):
+    async def build(self, request: Request, response: Response):
         pass
 
     @abstractmethod

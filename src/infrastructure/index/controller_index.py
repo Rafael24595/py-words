@@ -1,11 +1,13 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Response
 from fastapi.responses import HTMLResponse
+from infrastructure.abstract_controller import abstract_controller
 
 from infrastructure.index.builder.ui_builder_index import ui_builder_index
+from infrastructure.py_petition import py_petition
 
 BASE: str = "index"
 
-class controller_index():
+class controller_index(abstract_controller):
 
     __router: APIRouter
 
@@ -23,5 +25,6 @@ class controller_index():
     def router(self) -> APIRouter:
         return self.__router
         
-    async def _load_index(self, request: Request):
-        return ui_builder_index.build(request)
+    async def _load_index(self, request: Request, response: Response):
+        petition: py_petition = self.get_py_petition(request, response)
+        return ui_builder_index.build(request, response)

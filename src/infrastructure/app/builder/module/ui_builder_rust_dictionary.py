@@ -20,7 +20,7 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
     def __init__(self) -> None:
         self._templates = Jinja2Templates(directory="assets/app/" + rust_dictionary_actions.APP.value)
 
-    async def build(self, request: Request):
+    async def build(self, request: Request, response: Response):
         i_permutation: permutation = await self._generate_permutation()
         j_permutation = {
             'target': i_permutation.get_base(),

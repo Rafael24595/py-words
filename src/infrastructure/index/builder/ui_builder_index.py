@@ -1,6 +1,6 @@
 from fastapi.templating import Jinja2Templates
 
-from fastapi import Request
+from fastapi import Request, Response
 from commons.configuration.configuration import configuration
 
 BASE: str = "index"
@@ -10,7 +10,7 @@ class ui_builder_index():
     _templates = Jinja2Templates(directory="assets/index")
     
     @classmethod
-    def build(cls, request: Request):
+    def build(cls, request: Request, response: Response):
         conf: configuration = configuration.instance()
         headers = []
         footers = []
