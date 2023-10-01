@@ -1,13 +1,9 @@
 from fastapi import APIRouter, Request, Response
 from fastapi.responses import HTMLResponse
-from commons.optional import optional
-from commons.session.session import session
-from commons.session.sessions import sessions
 from infrastructure.abstract_controller import abstract_controller
 from infrastructure.app.builder.ui_builder_app import ui_builder_app
 from infrastructure.index.builder.ui_builder_index import ui_builder_index
-from infrastructure.py_petition import py_petition
-
+from infrastructure.petition.py_petition import py_petition
 BASE: str = "app"
 
 class controller_app(abstract_controller):
@@ -29,13 +25,13 @@ class controller_app(abstract_controller):
         return self.__router
         
     async def _load_app(self, request: Request, response: Response, code: str):
-        petition: py_petition = self.get_py_petition(request, response)
+        petition: py_petition = self.request_to_py_petition(request)
         if request.headers.get("hx-request") != None:
             return await ui_builder_app.build(code, request, response)
         return ui_builder_index.build(request, response)
     
     async def _execute(self, request: Request, response: Response, code: str, action: str):
-        petition: py_petition = self.get_py_petition(request, response)
+        petition: py_petition = self.request_to_py_petition(request)
         if request.headers.get("hx-request") != None:
             return await ui_builder_app.execute(code, action, request, response)
         return ui_builder_index.build(request, response)
