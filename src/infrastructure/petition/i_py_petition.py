@@ -17,6 +17,26 @@ class i_py_petition(ABC):
         pass
     
     @abstractmethod
+    async def input_json(self) -> dict[str,Any]:
+        pass
+    
+    @abstractmethod
+    def input_params_query(self) -> dict[str,str]:
+        pass
+    
+    @abstractmethod
+    def input_param_query(self, key: str) -> optional[str]:
+        pass
+    
+    @abstractmethod
+    def input_params_path(self) -> dict[str,str]:
+        pass
+    
+    @abstractmethod
+    def input_param_path(self, key: str) -> optional[str]:
+        pass
+    
+    @abstractmethod
     def get_status(self) -> int:
         pass
     
@@ -38,6 +58,10 @@ class i_py_petition(ABC):
     
     @abstractmethod
     def get_body(self) -> str:
+        pass
+    
+    @abstractmethod
+    def get_parameter(self, key: str) -> optional[Any]:
         pass
     
     @abstractmethod
@@ -68,6 +92,10 @@ class i_py_petition(ABC):
         
     @abstractmethod
     def add_context(self, response: Any):
+        pass
+    
+    @abstractmethod
+    def add_parameter(self, key: str, value: Any):
         pass
     
     @abstractmethod

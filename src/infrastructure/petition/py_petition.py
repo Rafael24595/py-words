@@ -17,6 +17,7 @@ class py_petition(i_py_petition):
     __headers: dict[str,list[header]]
     __cookies: dict[str,list[cookie]]
     __body: Any
+    __parameters: dict[str,Any]
     
     def __init__(self, sess: session, parser: py_petition_parser) -> None:
         self.__session = sess
@@ -26,13 +27,29 @@ class py_petition(i_py_petition):
         self.__media_type = "text/html"
         self.__headers = {}
         self.__cookies = {}
-        self.__body = b""
+        self.__body = ""
+        self.__parameters = {}
         
     def get_session(self) -> session:
         return self.__session
     
     def get_request(self):
         return self.__parser.get_request()
+    
+    async def input_json(self) -> dict[str,Any]:
+        return await self.__parser.input_json()
+    
+    def input_params_query(self) -> dict[str,str]:
+        return self.__parser.input_params_query()
+    
+    def input_param_query(self, key: str) -> optional[str]:
+        return self.__parser.input_param_query(key)
+    
+    def input_params_path(self) -> dict[str,str]:
+        return self.__parser.input_params_path()
+    
+    def input_param_path(self, key: str) -> optional[str]:
+        return self.__parser.input_param_path(key)
     
     def get_status(self) -> int:
         return self.__status
@@ -51,6 +68,9 @@ class py_petition(i_py_petition):
     
     def get_body(self) -> str:
         return self.__body
+    
+    def get_parameter(self, key: str) -> optional[Any]:
+        return optional.some(self.__parameters.get(key))
     
     def set_status(self, status: int):
         self.__status = status
@@ -77,6 +97,9 @@ class py_petition(i_py_petition):
     
     def set_body(self, body: Any):
         self.__body = body
+        
+    def add_parameter(self, key: str, value: Any):
+        self.__parameters[key] = value
         
     def add_context(self, response: Any):
         return self.__parser.add_context(self, response)
