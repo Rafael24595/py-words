@@ -1,3 +1,5 @@
+from typing import Any
+
 class soup_character:
     
     __character: str
@@ -20,3 +22,10 @@ class soup_character:
     
     def key(self) -> str:
         return self.__character + "-" + str(self.__x) + "-" + str(self.__y)
+    
+    def as_dto(self) -> dict[str,Any]:
+        dto: dict[str,Any] = {}
+        dto["character"] = self.__character
+        dto["x"] = self.__x
+        dto["y"] = self.__y
+        return dto

@@ -16,7 +16,7 @@ class abstract_controller(ABC):
         if(session_id is None or sess.is_none()):
             sess = optional.some(sessions.initialize())
             is_logged = False
-        petition = py_petition(sess, parser)
+        petition = py_petition(sess.unwrap(), parser)
         if not is_logged:
             petition.add_cookie("JSESSION_ID", sess.unwrap().get_id())
         return petition

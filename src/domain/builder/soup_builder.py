@@ -24,7 +24,10 @@ class soup_builder:
         characters:  dict[soup_character] = cls.__build_characters(dto['characters'])
         orientation: str = dto['orientation']
         word: str = dto['word']
-        return soup_word(characters, orientation, word)
+        resolved: bool = dto.get('resolved')
+        if resolved is None:
+            resolved = False
+        return soup_word(characters, orientation, word, resolved)
     
     @classmethod
     def __build_characters(cls, dtos: list[Any]) -> dict[soup_character]:
