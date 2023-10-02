@@ -12,6 +12,6 @@ class soup_memory(soup):
     async def generate_soup(self) -> soup_panel:
         file = open('assets/test/soup_output.json')
         dto = json.load(file)
-        panel = soup_builder.build(dto)
+        panel = soup_builder.build_from_resume_dto(dto)
         file.close()
         return panel

@@ -6,13 +6,13 @@ class soup_word:
     __characters: dict[str, soup_character]
     __orientation: str
     __word: str
-    __resoved: bool
+    __resolved: bool
     
     def __init__(self, characters: dict[str, soup_character], orientation: str, word: str, resolved: bool) -> None:
         self.__characters = characters
         self.__orientation = orientation
         self.__word = word
-        self.__resoved = resolved
+        self.__resolved = resolved
         
     def characters(self) -> dict[str, soup_character]:
         return self.__characters
@@ -24,13 +24,13 @@ class soup_word:
         return self.__word
     
     def mark_as_resolved(self):
-        self.__resoved = True
+        self.__resolved = True
     
     def mark_as_unresolved(self):
-        self.__resoved = False
+        self.__resolved = False
     
     def is_resolved(self) -> bool:
-        return self.__resoved
+        return self.__resolved
     
     def includes(self, character: soup_character) -> bool:
         key = character.key()
@@ -49,7 +49,7 @@ class soup_word:
         dto: dict[str,Any] = {}
         dto["orientation"] = self.__orientation
         dto["word"] = self.__word
-        dto["resolved"] = self.__resoved
+        dto["resolved"] = self.__resolved
         dto["characters"] = {}
         for character in self.__characters:
             dto["characters"][character] = self.__characters[character].as_dto()

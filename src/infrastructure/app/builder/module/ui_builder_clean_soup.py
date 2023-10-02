@@ -21,7 +21,7 @@ class ui_builder_clean_soup(ui_builder_module_app):
         container: dependency_container = dependency_container.instance()
         i_soup: soup = container.get_soup().unwrap()
         panel: soup_panel = await i_soup.generate_soup()
-        await self.__build(petition, panel, [])
+        await self.__build(petition, panel)
     
     async def execute(self, action: str, petition: i_py_petition):
         match(action):
@@ -32,7 +32,7 @@ class ui_builder_clean_soup(ui_builder_module_app):
     async def __resolve(self, petition: i_py_petition):
         dto = await petition.get_session().unstore(clean_soup_actions.APP.value)
         ##TODO: Uncontrolled optional unwrap.
-        panel: soup_panel = soup_builder.build(dto.unwrap().data())
+        panel: soup_panel = soup_builder.build_from_dto(dto.unwrap().data())
         raw_characters = await petition.input_json()
         characters: list[soup_character] = []
         for raw_character in raw_characters.values():
@@ -40,21 +40,20 @@ class ui_builder_clean_soup(ui_builder_module_app):
             ##TODO: Builder from string.
             character = soup_character(split[0], split[1], split[2])
             characters.append(character)
-        resolved = panel.check_characters(characters)
-        await self.__build(petition, panel, resolved)
+        panel.check_characters(characters)
+        await self.__build(petition, panel)
         
-    async def __build(self, petition: i_py_petition, panel: soup_panel, resolved: list[str]):
-        container: dependency_container = dependency_container.instance()
-        i_soup: soup = container.get_soup().unwrap()
-        panel: soup_panel = await i_soup.generate_soup()
+    async def __build(self, petition: i_py_petition, panel: soup_panel):
+        resolved: list[str] = panel.resolved_words()
+        dto = panel.as_dto()
         context = {
             'request': petition.get_request(),
             'app': clean_soup_actions.APP.value, 
             'action_resolve': clean_soup_actions.RESOLVE.value,
             'resolved': resolved,
-            'panel': panel.panel()
+            'panel': dto.get("panel")
         }
-        await petition.get_session().store(clean_soup_actions.APP.value, panel.as_dto())
+        await petition.get_session().store(clean_soup_actions.APP.value, dto)
         
         template = self._templates.TemplateResponse("index.html", context=context)
         petition.add_context(template)

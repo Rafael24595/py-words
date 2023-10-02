@@ -13,6 +13,11 @@
     visibility: hidden;
 }
 
+.selected-character {
+    background-color: black !important;
+    color: white !important
+}
+
 input[type="checkbox"] + label {
   display: inline-block;
   padding: 5px;

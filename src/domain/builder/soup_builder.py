@@ -1,14 +1,21 @@
 from typing import Any
 from domain.soup_panel.soup_character import soup_character
 from domain.soup_panel.soup_panel import soup_panel
+from domain.soup_panel.soup_position import soup_position
 from domain.soup_panel.soup_word import soup_word
 
 class soup_builder:
     
     @classmethod
-    def build(cls, dto: Any) -> soup_panel:
+    def build_from_resume_dto(cls, dto: Any) -> soup_panel:
         words: list[soup_word] = cls.__build_words(dto['words'])
-        panel: list[list[str]] = dto['panel']
+        panel: list[list[soup_position]] = cls.__build__from_resume_panel(dto['panel'])
+        return soup_panel(panel, words)
+    
+    @classmethod
+    def build_from_dto(cls, dto: Any) -> soup_panel:
+        words: list[soup_word] = cls.__build_words(dto['words'])
+        panel: list[list[soup_position]] = cls.__build_from_panel(dto['panel'])
         return soup_panel(panel, words)
     
     @classmethod
@@ -40,3 +47,29 @@ class soup_builder:
     @classmethod
     def __build_character(cls, dto: Any) -> list[soup_character]:
         return soup_character(dto['character'], dto['x'], dto['y'])
+    
+    @classmethod
+    def __build__from_resume_panel(cls, dtos: list[list[Any]]) -> list[list[soup_position]]:
+        panel: list[list[soup_position]] = []
+        for i_x, row in enumerate(dtos):
+            panel_row: list[soup_position] = []
+            for i_y, position in enumerate(row):
+                character = position
+                if position is " ":
+                    character = "$"
+                key: str = character + "-" + str(i_y) + "-" + str(i_x)
+                position: soup_position = soup_position(key, character, False)
+                panel_row.append(position)
+            panel.append(panel_row)
+        return panel
+    
+    @classmethod
+    def __build_from_panel(cls, dtos: list[list[Any]]) -> list[list[soup_position]]:
+        panel: list[list[soup_position]] = []
+        for row in dtos:
+            panel_row: list[soup_position] = []
+            for position in row:
+                position: soup_position = soup_position(position["identifier"], position["character"], position["resolved"])
+                panel_row.append(position)
+            panel.append(panel_row)
+        return panel

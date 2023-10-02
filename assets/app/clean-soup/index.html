@@ -6,11 +6,9 @@
                 {% set outer_loop = loop %}
                 <div class="row-container">
                     {% for y in x %}
-                        {% set character = y if y != ' ' else '$' %}
-                        {% set character_code = character + "-" + loop.index0|string + "-" + outer_loop.index0|string %}
-                        <input class="character-input" type="checkbox" id="{{ character_code }}" name="{{ character_code }}" value="{{ character_code }}">
-                        <label class="{{'empty-character' if character == '$' }}" for="{{ character_code }}">
-                            <span class="cell-container"> {{ character }} </span>
+                        <input class="character-input" type="checkbox" id="{{ y.identifier }}" name="{{ y.identifier }}" value="{{ y.identifier }}">
+                        <label class="{{'empty-character' if y.character == '$' }} {{'selected-character' if y.resolved }}" for="{{ y.identifier }}">
+                            <span class="cell-container"> {{ y.character }} </span>
                         </label>
                     {% endfor %}
                 </div>
