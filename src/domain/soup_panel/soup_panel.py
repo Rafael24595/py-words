@@ -18,15 +18,15 @@ class soup_panel:
         return self.__words
     
     def check_characters(self, characters: list[soup_character]) -> list[str]:
-        check: dict[str,list[str]] = {}
+        coincidence: dict[str,list[str]] = {}
         for character in characters:
             words = self.__words_includes(character)
             for word in words:
                 if word.includes(character):
-                    if check.get(word.word()) is None:
-                        check[word.word()] = []
-                    check[word.word()].append(character.key())
-        self.__check_words(check)
+                    if coincidence.get(word.word()) is None:
+                        coincidence[word.word()] = []
+                    coincidence[word.word()].append(character.key())
+        return self.__check_words(coincidence)
         
     def __words_includes(self, character: soup_character) -> list[soup_word]:
         words = []
@@ -35,11 +35,14 @@ class soup_panel:
                 words.append(word)
         return words
     
-    def __check_words(self, check: dict[str,list[str]]):
-        words = self.__get_words(list(check.keys()))
+    def __check_words(self, coincidence: dict[str,list[str]]) -> list[str]:
+        words = self.__get_words(list(coincidence.keys()))
+        resolved: list[str] = []
         for word in words:
-            if word.check_characters(check[word.word()]):
+            if word.check_characters(coincidence[word.word()]):
                 word.mark_as_resolved()
+                resolved.append(word.word())
+        return resolved
     
     def __get_words(self, raw_words: list[str]) -> list[soup_word]:
         words = []

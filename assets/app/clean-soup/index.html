@@ -1,12 +1,28 @@
 <div id="app-container">
     <link rel="stylesheet" href="{{ url_for('assets', path='/app/clean-soup/index.css') }}">
     <div id="panel-container">
-        {% for x in panel %}
-            <div class="row-container">
-                {% for y in x %}
-                    <span class="cell-container"> {{ y }} </span>
+        <form id="play-area">
+            {% for x in panel %}
+                {% set outer_loop = loop %}
+                <div class="row-container">
+                    {% for y in x %}
+                        {% set character = y if y != ' ' else '$' %}
+                        {% set character_code = character + "-" + loop.index0|string + "-" + outer_loop.index0|string %}
+                        <input class="character-input" type="checkbox" id="{{ character_code }}" name="{{ character_code }}" value="{{ character_code }}">
+                        <label class="{{'empty-character' if character == '$' }}" for="{{ character_code }}">
+                            <span class="cell-container"> {{ character }} </span>
+                        </label>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div id="play-area-left-bottom">
+                <button id="valide-button" hx-post="/app/{{ app }}/{{ action_resolve }}" hx-target="#panel" hx-ext='json-enc'>Valide</button>
+            </div>
+            <div id="result">
+                {% for name in resolved %}
+                    <p> {{ name }} </p>
                 {% endfor %}
             </div>
-        {% endfor %}
+        </form>
     </div>
 </div>

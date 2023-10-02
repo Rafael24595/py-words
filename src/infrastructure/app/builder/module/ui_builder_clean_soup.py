@@ -21,34 +21,40 @@ class ui_builder_clean_soup(ui_builder_module_app):
         container: dependency_container = dependency_container.instance()
         i_soup: soup = container.get_soup().unwrap()
         panel: soup_panel = await i_soup.generate_soup()
-        context = {
-            'request': petition.get_request(),
-            'panel': panel.panel()
-        }
-        await petition.get_session().store(clean_soup_actions.APP.value, panel.as_dto())
-        
-        ##TODO: Remove, test invoke.
-        await self.__resolve(petition)
-        
-        template = self._templates.TemplateResponse("index.html", context=context)
-        petition.add_context(template)
+        await self.__build(petition, panel, [])
     
     async def execute(self, action: str, petition: i_py_petition):
-        pass
+        match(action):
+            case clean_soup_actions.RESOLVE.value:
+                return await self.__resolve(petition)
+        return None
     
     async def __resolve(self, petition: i_py_petition):
         dto = await petition.get_session().unstore(clean_soup_actions.APP.value)
         ##TODO: Uncontrolled optional unwrap.
         panel: soup_panel = soup_builder.build(dto.unwrap().data())
-        ##TODO: Remove, mock data.
-        raw_characters = ["O-9-1", "R-4-1", "O-5-1", 
-            "P-3-1", "X-6-1", "I-7-1", 
-            "M-8-1", "A-9-8"]
+        raw_characters = await petition.input_json()
         characters: list[soup_character] = []
-        for raw_character in raw_characters:
+        for raw_character in raw_characters.values():
             split = raw_character.split("-")
             ##TODO: Builder from string.
             character = soup_character(split[0], split[1], split[2])
             characters.append(character)
-        panel.check_characters(characters)
+        resolved = panel.check_characters(characters)
+        await self.__build(petition, panel, resolved)
         
+    async def __build(self, petition: i_py_petition, panel: soup_panel, resolved: list[str]):
+        container: dependency_container = dependency_container.instance()
+        i_soup: soup = container.get_soup().unwrap()
+        panel: soup_panel = await i_soup.generate_soup()
+        context = {
+            'request': petition.get_request(),
+            'app': clean_soup_actions.APP.value, 
+            'action_resolve': clean_soup_actions.RESOLVE.value,
+            'resolved': resolved,
+            'panel': panel.panel()
+        }
+        await petition.get_session().store(clean_soup_actions.APP.value, panel.as_dto())
+        
+        template = self._templates.TemplateResponse("index.html", context=context)
+        petition.add_context(template)
