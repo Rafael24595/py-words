@@ -1,0 +1,42 @@
+<div id="app-container">
+    <link rel="stylesheet" href="{{ url_for('assets', path='/app/clean-soup/index.css') }}">
+    <h1 id="app-title"> {{ app }} </h1>
+    <div id="void-container"></div>
+    <form id="play-area">
+        <div id="play-area-body">
+            <div id="play-area-left">
+                <div id="soup-name">
+                    <h2><b> {{ soup_name }} </b></h2>
+                </div>
+                <div id="soup-panel">
+                    {% for x in panel %}
+                        {% set outer_loop = loop %}
+                        <div class="row-container">
+                            {% for y in x %}
+                                <input class="character-input" type="checkbox" id="{{ y.identifier }}" name="{{ y.identifier }}" value="{{ y.identifier }}">
+                                <label class="{{'empty-character' if y.character == '$' }} {{'selected-character' if y.resolved }}" for="{{ y.identifier }}">
+                                    <span class="cell-container"> {{ y.character }} </span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="play-area-right">
+                <div id="result">
+                    <h3><b>Words: </b></h3>
+                    {% for word in words %}
+                        <p class="{{'resolved-word' if word.resolved}}"> {{ word.word }} </p>
+                    {% endfor %}
+                </div>
+                <div id="soup-resume">
+                    <b>Result</b>: {{ resolved }} / {{ total }}
+                </div>
+            </div>
+        </div>
+        <div id="play-area-footer">
+            <button id="valide-button" hx-post="/app/{{ app }}/{{ action_resolve }}" hx-target="#panel" hx-ext='json-enc'>Valide</button>
+            <button id="valide-button" hx-post="/app/{{ app }}/{{ action_form }}" hx-target="#panel" hx-ext='json-enc'>Generate</button>
+        </div>
+    </form>
+</div>

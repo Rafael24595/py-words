@@ -1,26 +1,15 @@
 <div id="app-container">
     <link rel="stylesheet" href="{{ url_for('assets', path='/app/clean-soup/index.css') }}">
-    <div id="panel-container">
-        <form id="play-area">
-            {% for x in panel %}
-                {% set outer_loop = loop %}
-                <div class="row-container">
-                    {% for y in x %}
-                        <input class="character-input" type="checkbox" id="{{ y.identifier }}" name="{{ y.identifier }}" value="{{ y.identifier }}">
-                        <label class="{{'empty-character' if y.character == '$' }} {{'selected-character' if y.resolved }}" for="{{ y.identifier }}">
-                            <span class="cell-container"> {{ y.character }} </span>
-                        </label>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-            <div id="play-area-left-bottom">
-                <button id="valide-button" hx-post="/app/{{ app }}/{{ action_resolve }}" hx-target="#panel" hx-ext='json-enc'>Valide</button>
+    <h1 id="app-title"> {{ app }} </h1>
+    <div id="void-container"></div>
+    <form id="play-area">
+        <div id="play-area-body">
+            <div id="soup-form">
+                <h2>This is a form!</h2>
             </div>
-            <div id="result">
-                {% for name in resolved %}
-                    <p> {{ name }} </p>
-                {% endfor %}
-            </div>
-        </form>
-    </div>
+        </div>
+        <div id="play-area-footer">
+            <button id="valide-button" hx-post="/app/{{ app }}/{{ action_panel }}" hx-target="#panel" hx-ext='json-enc'>Confirm</button>
+        </div>
+    </form>
 </div>

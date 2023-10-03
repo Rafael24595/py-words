@@ -2,6 +2,7 @@ from typing import Any
 from domain.soup_panel.soup_character import soup_character
 from domain.soup_panel.soup_position import soup_position
 from domain.soup_panel.soup_word import soup_word
+from domain.soup_panel.soup_word_status import soup_word_status
 
 class soup_panel:
     
@@ -23,6 +24,13 @@ class soup_panel:
         for word in self.__words:
             if word.is_resolved():
                 words.append(word.word())
+        return words
+    
+    def words_status(self) -> list[dict[str,Any]]:
+        words: list[str] = []
+        for word in self.__words:
+            word_status: soup_word_status = soup_word_status(word.word(), word.is_resolved())
+            words.append(word_status.as_dto())
         return words
     
     def check_characters(self, characters: list[soup_character]) -> list[str]:

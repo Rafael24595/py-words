@@ -46,3 +46,20 @@
     flex: 1 1 auto;
     display: flex;
 }
+
+#app-container {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+    width: 0px;
+}
+
+#void-container {
+    display: none;
+}
+
+#app-title {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}

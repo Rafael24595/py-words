@@ -18,6 +18,76 @@
     color: white !important
 }
 
+.resolved-word {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#play-area {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  padding: 10px;
+  flex: 1 1 auto;
+  background-color: violet;
+}
+
+#soup-form {
+  flex: 1 1 auto;
+  background-color: antiquewhite;
+}
+
+#play-area-body {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+#play-area-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 auto;
+  background-color: antiquewhite;
+}
+
+#play-area-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 45px;
+  padding-right: 45px;
+  background-color: aquamarine;
+}
+
+#soup-name {
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid;
+}
+
+#soup-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+#soup-resume {
+  margin-bottom: 20px;
+}
+
+#play-area-footer {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  justify-content: center;
+  background-color: aqua;
+}
+
+#play-area-footer button {
+  margin: 5px;
+}
+
 input[type="checkbox"] + label {
   display: inline-block;
   padding: 5px;

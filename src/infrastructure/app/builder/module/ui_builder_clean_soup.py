@@ -18,16 +18,32 @@ class ui_builder_clean_soup(ui_builder_module_app):
         self._templates = Jinja2Templates(directory="assets/app/" + clean_soup_actions.APP.value)
     
     async def build(self, petition: i_py_petition):
+        return await self.__form(petition)
+    
+    async def execute(self, action: str, petition: i_py_petition):
+        match(action):
+            case clean_soup_actions.FORM.value:
+                return await self.__form(petition)
+            case clean_soup_actions.PANEL.value:
+                return await self.__panel(petition)
+            case clean_soup_actions.RESOLVE.value:
+                return await self.__resolve(petition)
+        return None
+    
+    async def __form(self, petition: i_py_petition):
+        context = {
+            'request': petition.get_request(),
+            'app': clean_soup_actions.APP.value, 
+            'action_panel': clean_soup_actions.PANEL.value,
+        }
+        template = self._templates.TemplateResponse("index.html", context=context)
+        petition.add_context(template)
+    
+    async def __panel(self, petition: i_py_petition):
         container: dependency_container = dependency_container.instance()
         i_soup: soup = container.get_soup().unwrap()
         panel: soup_panel = await i_soup.generate_soup()
         await self.__build(petition, panel)
-    
-    async def execute(self, action: str, petition: i_py_petition):
-        match(action):
-            case clean_soup_actions.RESOLVE.value:
-                return await self.__resolve(petition)
-        return None
     
     async def __resolve(self, petition: i_py_petition):
         dto = await petition.get_session().unstore(clean_soup_actions.APP.value)
@@ -44,16 +60,20 @@ class ui_builder_clean_soup(ui_builder_module_app):
         await self.__build(petition, panel)
         
     async def __build(self, petition: i_py_petition, panel: soup_panel):
-        resolved: list[str] = panel.resolved_words()
+        words: list[str] = panel.words_status()
         dto = panel.as_dto()
         context = {
             'request': petition.get_request(),
             'app': clean_soup_actions.APP.value, 
             'action_resolve': clean_soup_actions.RESOLVE.value,
-            'resolved': resolved,
-            'panel': dto.get("panel")
+            'action_form': clean_soup_actions.FORM.value,
+            'soup_name': "Fire Sandwich",
+            'words': words,
+            'panel': dto.get("panel"),
+            'total': len(panel.words()),
+            'resolved': len(panel.resolved_words())
         }
         await petition.get_session().store(clean_soup_actions.APP.value, dto)
         
-        template = self._templates.TemplateResponse("index.html", context=context)
+        template = self._templates.TemplateResponse("panel.html", context=context)
         petition.add_context(template)
