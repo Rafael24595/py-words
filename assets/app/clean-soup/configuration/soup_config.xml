@@ -1,0 +1,117 @@
+<clean_soup_configuration>
+    <system>
+        <log>
+            <name>ConsoleLog</name>
+            <class>core.java.module.log.ConsoleLog</class>
+            <parameters>
+            </parameters>
+        </log>
+        <printer>
+            <name>ParserPrinter</name>
+            <class>core.java.module.print.ParserPrinter</class>
+            <parameters>
+            </parameters>
+        </printer>
+    </system>
+    <input>
+        <receivers>
+            <dimensions_receiver>
+                <name>IDimensionsReceiver</name>
+                <dependencies>
+                    <dependency status="enabled">
+                        <name>CustomDimensionsReceiver</name>
+                        <class>core.java.module.receiver.dimensions.CustomDimensionsReceiver</class>
+                        <order>3</order>
+                        <parameters>
+                            <parameter>
+                                <name>Height</name>
+                                <type>INTEGER</type>
+                                <order>1</order>
+                                <value>11</value>
+                            </parameter>
+                            <parameter>
+                                <name>Width</name>
+                                <type>INTEGER</type>
+                                <order>2</order>
+                                <value>16</value>
+                            </parameter>
+                            <parameter>
+                                <name>Split Geometry</name>
+                                <type>STRING_ARRAY</type>
+                                <order>3</order>
+                                <values>
+                                    <value status="disabled">SPLIT_DIAMOND</value>
+                                    <value status="disabled">SPLIT_DIAMOND_AESTHETIC</value>
+                                    <value status="disabled">SPLIT_HEART</value>
+                                    <value status="disabled">INNER_BOX</value>
+                                </values>
+                            </parameter>
+                            <parameter>
+                                <name>Range</name>
+                                <type>INTEGER</type>
+                                <order>4</order>
+                                <value>1</value>
+                            </parameter>
+                        </parameters>
+                    </dependency>
+                </dependencies>
+            </dimensions_receiver>
+            <word_receiver>
+                <name>IWordReceiver</name>
+                <dependencies>
+                    <dependency status="disabled">
+                        <name>RAEWordReceiver</name>
+                        <class>core.java.module.receiver.word.RAEWordReceiver</class>
+                        <order>1</order>
+                        <quantity>1</quantity>
+                        <parameters>
+                            <parameter>
+                                <name>List Size</name>
+                                <type>INTEGER</type>
+                                <order>1</order>
+                                <value>5</value>
+                            </parameter>
+                        </parameters>
+                    </dependency>
+                    <dependency status="disabled">
+                        <name>CustomNumberWordReceiver</name>
+                        <class>core.java.module.receiver.word.CustomNumberWordReceiver</class>
+                        <order>2</order>
+                        <quantity>1</quantity>
+                        <parameters>
+                            <parameter>
+                                <name>List Size</name>
+                                <type>INTEGER</type>
+                                <order>1</order>
+                                <value>5</value>
+                            </parameter>
+                            <parameter>
+                                <name>Length</name>
+                                <type>INTEGER</type>
+                                <order>2</order>
+                                <value>10</value>
+                            </parameter>
+                        </parameters>
+                    </dependency>
+                </dependencies>
+            </word_receiver>
+            <strict_receiver>
+                <name>IStrictReceiver</name>
+                <dependencies>
+                    <dependency status="enabled">
+                        <name>DisableStrictReceiver</name>
+                        <class>core.java.module.receiver.strict.DisableStrictReceiver</class>
+                        <order>1</order>
+                        <parameters>
+                        </parameters>
+                    </dependency>
+                </dependencies>
+            </strict_receiver>
+            <orientation_receiver>
+                <name>IOrientationReceiver</name>
+                <dependencies>
+                </dependencies>
+            </orientation_receiver>
+        </receivers>
+    </input>
+</clean_soup_configuration>

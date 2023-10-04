@@ -9,7 +9,7 @@ class soup_memory(soup):
     def __init__(self, *args: str) -> None:
         pass
     
-    async def generate_soup(self) -> soup_panel:
+    async def generate_soup(self, configuration: str) -> soup_panel:
         file = open('assets/test/soup_output.json')
         dto = json.load(file)
         panel = soup_builder.build_from_resume_dto(dto)

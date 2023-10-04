@@ -1,9 +1,12 @@
+from typing import Any
 from fastapi.templating import Jinja2Templates
 
 from commons.configuration.dependency.dependency_container import dependency_container
 from domain.builder.soup_builder import soup_builder
+from domain.builder.soup_config_builder import soup_config_builder
 from domain.soup import soup
 from domain.soup_panel.soup_character import soup_character
+from domain.soup_panel.soup_config_param import soup_config_param
 from domain.soup_panel.soup_panel import soup_panel
 
 from infrastructure.app.builder.module.clean_soup_actions import clean_soup_actions
@@ -42,9 +45,18 @@ class ui_builder_clean_soup(ui_builder_module_app):
     async def __panel(self, petition: i_py_petition):
         container: dependency_container = dependency_container.instance()
         i_soup: soup = container.get_soup().unwrap()
-        panel: soup_panel = await i_soup.generate_soup()
+        configuration: str = await self.__build_config_parameters(petition)
+        panel: soup_panel = await i_soup.generate_soup(configuration)
         await self.__build(petition, panel)
-    
+        
+    async def __build_config_parameters(self, petition: i_py_petition):
+        body: dict[str,Any] = await petition.input_json()
+        height = body.get("height")   
+        width = body.get("width")   
+        geometry = body.get("geometry")   
+        params: soup_config_param = soup_config_param(height, width, geometry)
+        return soup_config_builder.build(params)
+        
     async def __resolve(self, petition: i_py_petition):
         dto = await petition.get_session().unstore(clean_soup_actions.APP.value)
         ##TODO: Uncontrolled optional unwrap.
