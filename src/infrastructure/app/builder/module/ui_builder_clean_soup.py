@@ -51,10 +51,11 @@ class ui_builder_clean_soup(ui_builder_module_app):
         
     async def __build_config_parameters(self, petition: i_py_petition):
         body: dict[str,Any] = await petition.input_json()
-        height = body.get("height")   
-        width = body.get("width")   
-        geometry = body.get("geometry")   
-        params: soup_config_param = soup_config_param(height, width, geometry)
+        height = body.get("height")
+        width = body.get("width")
+        geometry = body.get("geometry")
+        geometry_range = body.get("geometry-range")
+        params: soup_config_param = soup_config_param(height, width, geometry, geometry_range)
         return soup_config_builder.build(params)
         
     async def __resolve(self, petition: i_py_petition):

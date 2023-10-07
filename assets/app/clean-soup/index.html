@@ -5,25 +5,33 @@
     <form id="play-area">
         <div id="play-area-body">
             <div id="soup-form">
-                <h2>This is a form!</h2>
-                <label for="height">
-                    Height:
-                    <input id="height" type="number" name="height" value="10">
-                </label>
-                <label for="width">
-                    Width:
-                    <input id="width" type="number" name="width" value="15">
-                </label>
-                <label for="geometry">
-                    Geometry:
-                    <select name="geometry" id="geometry">
-                        <option value="" selected >None</option>
-                        <option value="SPLIT_DIAMOND">SPLIT_DIAMOND</option>
-                        <option value="SPLIT_DIAMOND_AESTHETIC">SPLIT_DIAMOND_AESTHETIC</option>
-                        <option value="SPLIT_HEART">SPLIT_HEART</option>
-                        <option value="INNER_BOX">INNER_BOX</option>
-                    </select>
-                </label>
+                <div id="form-title">
+                    <h2>Soup parameters: </h2>
+                </div>
+                <div id="form-panel">
+                    <label for="height">
+                        Height:
+                        <input id="height" type="number" name="height" value="10">
+                    </label>
+                    <label for="width">
+                        Width:
+                        <input id="width" type="number" name="width" value="15">
+                    </label>
+                    <label for="geometry">
+                        Geometry:
+                        <select name="geometry" id="geometry">
+                            <option value="" selected >None</option>
+                            <option value="SPLIT_DIAMOND">SPLIT_DIAMOND</option>
+                            <option value="SPLIT_DIAMOND_AESTHETIC">SPLIT_DIAMOND_AESTHETIC</option>
+                            <option value="SPLIT_HEART">SPLIT_HEART</option>
+                            <option value="INNER_BOX">INNER_BOX</option>
+                        </select>
+                    </label>
+                    <label for="geometry-range">
+                        Geometry range:
+                        <input id="geometry-range" type="number" name="geometry-range" value="1">
+                    </label>
+                </div>
             </div>
         </div>
         <div id="play-area-footer">

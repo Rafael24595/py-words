@@ -3,18 +3,31 @@ from domain.dictionary import dictionary
 from domain.soup import soup
 from infrastructure.cache_memory import cache_memory
 from infrastructure.dictionary_memory import dictionary_memory
+from infrastructure.soup_app import soup_app
 from infrastructure.soup_memory import soup_memory
 
 class dependency_dictionary():
     
     @classmethod
-    def find_cache(*args: str) -> cache:
-        return cache_memory(args)
+    def find_cache(cls, code: str, args: dict[str, str]) -> cache:
+        match code:
+            case cache_memory.NAME:
+                return cache_memory(args)
+        raise Exception("Cache service not found")
     
     @classmethod
-    def find_dictionary(*args: str) -> dictionary:
-        return dictionary_memory(args)
+    def find_dictionary(cls, code: str, args: dict[str, str]) -> dictionary:
+        match code:
+            case dictionary_memory.NAME:
+                return dictionary_memory(args)
+        raise Exception("Dictionary service not found")
+        
     
     @classmethod
-    def find_soup(*args: str) -> soup:
-        return soup_memory(args)
+    def find_soup(cls, code: str, args: dict[str, str]) -> soup:
+        match code:
+            case soup_memory.NAME:
+                return soup_memory(args)
+            case soup_app.NAME:
+                return soup_app(args)
+        raise Exception("Dictionary service not found")

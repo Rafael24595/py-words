@@ -37,6 +37,17 @@
   background-color: antiquewhite;
 }
 
+#form-title {
+  border-bottom: 1px solid black;
+  margin-bottom: 25px;
+}
+
+#form-panel {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 #play-area-body {
   display: flex;
   flex: 1 1 auto;

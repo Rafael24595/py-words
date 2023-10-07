@@ -6,7 +6,9 @@ from domain.soup_panel.soup_panel import soup_panel
 
 class soup_memory(soup):
     
-    def __init__(self, *args: str) -> None:
+    NAME: str = "soup_memory"
+    
+    def __init__(self, args: dict[str, str]) -> None:
         pass
     
     async def generate_soup(self, configuration: str) -> soup_panel:

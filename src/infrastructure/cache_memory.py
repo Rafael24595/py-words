@@ -6,10 +6,12 @@ from domain.cache_event import cache_event
 
 class cache_memory(cache):
     
+    NAME: str = "cache_memory"
+    
     __lock: threading.Lock
     __cache: dict[str, cache_event[Any]]
     
-    def __init__(self, *args: str) -> None:
+    def __init__(self, *args: dict[str, str]) -> None:
         self.__lock = threading.Lock()
         self.__cache = {}
     

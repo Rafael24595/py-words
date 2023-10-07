@@ -20,6 +20,8 @@ class soup_config_builder():
                     geometry_value: optional[XML.Element] = cls.__get_geometry(parameter, params.geometry())
                     if geometry_value.is_some():
                         geometry_value.unwrap().attrib["status"] = "enabled"
+                case "Range":
+                    parameter.find("value").text = str(params.geometry_range())
                         
         return XML.tostring(xml.getroot(), encoding='utf8')
     
