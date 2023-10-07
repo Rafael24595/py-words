@@ -60,7 +60,7 @@
                 <name>IWordReceiver</name>
                 <dependencies>
                     <dependency status="enabled">
-                        <name>RAEWordReceiver</name>
+                        <name>RustDictionaryWordReceiver</name>
                         <class>core.java.module.receiver.word.RustDictionaryWordReceiver</class>
                         <order>1</order>
                         <quantity>1</quantity>
