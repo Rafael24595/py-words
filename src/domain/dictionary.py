@@ -5,6 +5,10 @@ from domain.permutation import permutation
 class dictionary(ABC):
 
     @abstractmethod
+    def get_connection(self) -> str:
+        pass
+
+    @abstractmethod
     async def generate_permutation(self) -> permutation:
         pass
     

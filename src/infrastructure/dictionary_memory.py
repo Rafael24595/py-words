@@ -8,6 +8,9 @@ class dictionary_memory(dictionary):
     def __init__(self, args: dict[str, str]) -> None:
         pass
     
+    def get_connection(self) -> str:
+        return "http://localhost:8081/"
+    
     async def generate_permutation(self) -> permutation:
         return permutation("XAYZ", ["XYZ", "YXZ", "ZXY", "XZY", "YZX", "ZYX"]) 
     

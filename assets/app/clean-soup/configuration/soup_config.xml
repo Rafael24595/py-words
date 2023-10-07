@@ -59,37 +59,23 @@
             <word_receiver>
                 <name>IWordReceiver</name>
                 <dependencies>
-                    <dependency status="disabled">
+                    <dependency status="enabled">
                         <name>RAEWordReceiver</name>
-                        <class>core.java.module.receiver.word.RAEWordReceiver</class>
+                        <class>core.java.module.receiver.word.RustDictionaryWordReceiver</class>
                         <order>1</order>
                         <quantity>1</quantity>
                         <parameters>
                             <parameter>
-                                <name>List Size</name>
-                                <type>INTEGER</type>
+                                <name>Dynamic</name>
+                                <type>BOOLEAN</type>
                                 <order>1</order>
-                                <value>5</value>
-                            </parameter>
-                        </parameters>
-                    </dependency>
-                    <dependency status="disabled">
-                        <name>CustomNumberWordReceiver</name>
-                        <class>core.java.module.receiver.word.CustomNumberWordReceiver</class>
-                        <order>2</order>
-                        <quantity>1</quantity>
-                        <parameters>
-                            <parameter>
-                                <name>List Size</name>
-                                <type>INTEGER</type>
-                                <order>1</order>
-                                <value>5</value>
+                                <value>true</value>
                             </parameter>
                             <parameter>
-                                <name>Length</name>
-                                <type>INTEGER</type>
+                                <name>Domain</name>
+                                <type>STRING</type>
                                 <order>2</order>
-                                <value>10</value>
+                                <value></value>
                             </parameter>
                         </parameters>
                     </dependency>

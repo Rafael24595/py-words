@@ -30,6 +30,7 @@
   padding: 10px;
   flex: 1 1 auto;
   background-color: violet;
+  overflow: hidden;
 }
 
 #soup-form {
@@ -51,6 +52,7 @@
 #play-area-body {
   display: flex;
   flex: 1 1 auto;
+  overflow: hidden;
 }
 
 #play-area-left {
@@ -59,6 +61,7 @@
   align-items: center;
   flex: 1 1 auto;
   background-color: antiquewhite;
+  overflow: auto;
 }
 
 #play-area-right {
@@ -81,6 +84,7 @@
   flex-direction: column;
   flex: 1 1 auto;
   justify-content: center;
+  margin: 5px;
 }
 
 #soup-resume {
@@ -101,12 +105,12 @@
 
 input[type="checkbox"] + label {
   display: inline-block;
-  padding: 5px;
+  padding: 3px;
   cursor: pointer;
   border: 1px solid black;
   color: black;
   background-color: white;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 input[type="checkbox"]:checked + label {
