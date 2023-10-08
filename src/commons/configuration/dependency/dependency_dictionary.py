@@ -2,6 +2,7 @@ from domain.cache import cache
 from domain.dictionary import dictionary
 from domain.soup import soup
 from infrastructure.cache_memory import cache_memory
+from infrastructure.dictionary_app import dictionary_app
 from infrastructure.dictionary_memory import dictionary_memory
 from infrastructure.soup_app import soup_app
 from infrastructure.soup_memory import soup_memory
@@ -20,6 +21,8 @@ class dependency_dictionary():
         match code:
             case dictionary_memory.NAME:
                 return dictionary_memory(args)
+            case dictionary_app.NAME:
+                return dictionary_app(args)
         raise Exception("Dictionary service not found")
         
     

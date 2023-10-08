@@ -1,7 +1,8 @@
+import xml.etree.ElementTree as XML
+
 from commons.configuration.dependency.dependency_container import dependency_container
 from commons.optional import optional
-import xml.etree.ElementTree as XML
-from domain.dictionary import dictionary
+from domain.soup import soup
 from domain.soup_panel.soup_config_param import soup_config_param
 
 class soup_config_builder():
@@ -39,9 +40,9 @@ class soup_config_builder():
         
         for parameter in dimension.findall("parameters/parameter"):
             if parameter.find("name").text == "Domain":
-                i_dictionary: optional[dictionary] = dependency_container.instance().get_dictionary()
-                if i_dictionary.is_some():
-                    parameter.find("value").text = i_dictionary.unwrap().get_connection()
+                i_soup: optional[soup] = dependency_container.instance().get_soup()
+                if i_soup.is_some():
+                    parameter.find("value").text = i_soup.unwrap().get_word_connection()
                         
     @classmethod
     def __get_geometry(cls, parameter: XML.Element, geometry: str) -> optional[XML.Element]:

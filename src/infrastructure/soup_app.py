@@ -9,9 +9,14 @@ class soup_app(soup):
     NAME: str = "soup_app"
     
     __connection: str
+    __word_connection: str
     
     def __init__(self, args: dict[str, str]) -> None:
         self.__connection = args["SERVICE_SOUP_CONNECTION"]
+        self.__word_connection = args["SERVICE_SOUP_CONNECTION_WORD"]
+        
+    def get_word_connection(self) -> str:
+        return self.__word_connection
     
     async def generate_soup(self, configuration: str) -> soup_panel:
         dto = await self.__get_panel(configuration)
