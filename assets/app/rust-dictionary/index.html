@@ -9,9 +9,15 @@
                 <input name="reference" type="hidden" value="{{ permutation.reference }}">
                 <h3><b>Proposed permutation string: </b></h3>
                 <div id="permutation-container">
-                    <button id="permutation-left"></button>
+                    <div id="permutation-left">
+                        <input class="permutation-input" type="number">
+                        <button></button>
+                    </div>
                     <p id="permutation-center"> {{ permutation.target }} </p>
-                    <button hx-get="/app/{{ app }}" hx-target="#panel" id="permutation-right">-</button>
+                    <div id="permutation-right">
+                        <input id="combolen" class="permutation-input" name="combolen" title="Combo length" type="number" value="4">
+                        <button hx-post="/app/{{ app }}/{{ action_new }}" hx-target="#panel" hx-ext='json-enc'>-</button>
+                    </div>
                 </div>
                 <div id="add-word-container">
                     <label for="add-word">

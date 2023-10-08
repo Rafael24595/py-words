@@ -81,6 +81,10 @@
     margin-left: auto;
 }
 
+.permutation-input {
+    width: 50px;
+}
+
 #play-area-left-bottom {
     flex: 1 1 auto;
     display: flex;

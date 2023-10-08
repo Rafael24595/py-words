@@ -30,6 +30,8 @@ class fastapi_petition_parser(py_petition_parser):
         return self.__request
     
     async def input_json(self) -> dict[str,Any]:
+        if (await self.__request.body()).decode() == "":
+            return {}
         return await self.__request.json()
     
     def input_params_query(self) -> dict[str,str]:

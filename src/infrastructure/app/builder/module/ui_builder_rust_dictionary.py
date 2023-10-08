@@ -21,18 +21,23 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
         self._templates = Jinja2Templates(directory="assets/app/" + rust_dictionary_actions.APP.value)
 
     async def build(self, petition: i_py_petition):
-        i_permutation: permutation = await self._generate_permutation()
+        body: dict[str,Any] = await petition.input_json()
+        combolen = body.get("combolen")
+        if combolen is not None:
+            combolen = int(combolen)
+        i_permutation: permutation = await self._generate_permutation(combolen)
         j_permutation = {
             'target': i_permutation.get_base(),
             'reference': i_permutation.key()
         }
         context = { 
             'request': petition.get_request(), 
-            'app': rust_dictionary_actions.APP.value, 
-            'action_add_word': rust_dictionary_actions.ADD_WORD.value, 
-            'action_resolve': rust_dictionary_actions.RESOLVE.value, 
-            'action_new_clue': rust_dictionary_actions.NEW_CLUE.value, 
-            'action_update_score': rust_dictionary_actions.UPDATE_SCORE.value, 
+            'app': rust_dictionary_actions.APP.value,
+            'action_add_word': rust_dictionary_actions.ADD_WORD.value,
+            'action_resolve': rust_dictionary_actions.RESOLVE.value,
+            'action_new_clue': rust_dictionary_actions.NEW_CLUE.value,
+            'action_update_score': rust_dictionary_actions.UPDATE_SCORE.value,
+            'action_new': rust_dictionary_actions.NEW_PERMUTATION.value,
             'permutation': j_permutation 
         }
         template = self._templates.TemplateResponse("index.html", context)
@@ -40,6 +45,8 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
 
     async def execute(self, action: str, petition: i_py_petition):
         match(action):
+            case rust_dictionary_actions.NEW_PERMUTATION.value:
+                return await self.build(petition)
             case rust_dictionary_actions.RESOLVE.value:
                 if not await self._is_finished(petition):
                     return await self._build_result(petition)
@@ -87,7 +94,7 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
         words: list[str] = await self._added_words(petition)
         add_word_raw = body.get('add-word')
         if add_word_raw not in words and add_word_raw != None:
-            words = [add_word_raw] + words
+            words = [add_word_raw.upper()] + words
         return self._build_words(petition, words)
     
     async def _build_remove_words(self, petition: i_py_petition):
@@ -145,11 +152,11 @@ class ui_builder_rust_dictionary(ui_builder_module_app):
             score = score + len(result.mistaked()) * 100 * -1
         return score
     
-    async def _generate_permutation(self) -> permutation:
+    async def _generate_permutation(self, combolen: int) -> permutation:
         container: dependency_container = dependency_container.instance()
         i_dictionary: dictionary = container.get_dictionary().unwrap()
         i_cache: cache = container.get_cache().unwrap()
-        i_permutation: permutation = await i_dictionary.generate_permutation()
+        i_permutation: permutation = await i_dictionary.generate_permutation(combolen)
         await i_cache.put(i_permutation.key(), "global", i_permutation.struct())
         return i_permutation
     

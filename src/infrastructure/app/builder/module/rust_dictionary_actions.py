@@ -2,6 +2,7 @@ from enum import Enum
 
 class rust_dictionary_actions(Enum):
     APP: str = "rust-dictionary"
+    NEW_PERMUTATION: str = 'new-permutation'
     RESOLVE: str = 'resolve'
     ADD_WORD: str = 'add-word'
     REMOVE_WORD: str = 'remove-word'
