@@ -21,11 +21,16 @@
             <h2 class="l-sidebar-title"> {{ body.ls_sidebar.title }} </h2>
             {% for element in body.ls_sidebar.elements %}
             <div id="{{ element.id }}" class="l-sidebar-row {{ element.clazz }}">
-                <p hx-get="/app/{{ element.api }}" hx-target="#panel" class="l-sidebar-row-title"> {{ element.name }} </p>
+                <p hx-get="/app/{{ element.api }}" hx-target="#panel" hx-indicator=".loader" class="l-sidebar-row-title"> {{ element.name }} </p>
             </div>
             {% endfor %}
         </div>
-        <div id="panel">
+        <div id="centre">
+            <div id="load-container">
+                <span class="loader htmx-indicator">Loading</span>
+            </div>
+            <div id="panel">
+            </div>
         </div>
     </div>
     <div id="footer">

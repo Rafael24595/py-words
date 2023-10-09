@@ -16,7 +16,7 @@
                     <p id="permutation-center"> {{ permutation.target }} </p>
                     <div id="permutation-right">
                         <input id="combolen" class="permutation-input" name="combolen" title="Combo length" type="number" value="4">
-                        <button hx-post="/app/{{ app }}/{{ action_new }}" hx-target="#panel" hx-ext='json-enc'>-</button>
+                        <button hx-post="/app/{{ app }}/{{ action_new }}" hx-target="#panel" hx-indicator=".loader" hx-ext='json-enc'>-</button>
                     </div>
                 </div>
                 <div id="add-word-container">
