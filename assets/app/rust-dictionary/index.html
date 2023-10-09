@@ -7,7 +7,7 @@
             <div id="play-area-left-top">
                 <input name="target" type="hidden" value="{{ permutation.target }}">
                 <input name="reference" type="hidden" value="{{ permutation.reference }}">
-                <h3><b>Proposed permutation string: </b></h3>
+                <h3 class="container-underline"><b>Proposed permutation string: </b></h3>
                 <div id="permutation-container">
                     <div id="permutation-left">
                         <input class="permutation-input" type="number">
@@ -21,14 +21,14 @@
                 </div>
                 <div id="add-word-container">
                     <label for="add-word">
-                        <h3>Add word:</h3>
+                        <h3 class="container-underline">Add word:</h3>
                         <input id="add-word" name="add-word" type="text">
                     </label>
                     <button hx-post="/app/{{ app }}/{{ action_add_word }}" hx-target="#added-words-container" hx-ext='json-enc'>+</button>
                 </div>
             </div>
             <div id="play-area-left-bottom">
-                <h3>Words:</h3>
+                <h3 class="container-underline">Words:</h3>
                 <div id="added-words-container"></div>
                 <button id="valide-button" hx-post="/app/{{ app }}/{{ action_resolve }}" hx-target="#result" hx-ext='json-enc'>Valide</button>
             </div>
@@ -36,14 +36,14 @@
         <div id="play-area-right">
             <div id="play-area-right-top">
                 <div id="clues-title">
-                    <h3><b>Clues </b></h3>
+                    <h3 class="container-underline"><b>Clues </b></h3>
                     <button id="new-clue" hx-post="/app/{{ app }}/{{ action_new_clue }}" hx-target="#clues-container" hx-ext='json-enc'> + </button>
                     <h3><b>: </b></h3>
                 </div>
                 <div id="clues-container"></div>
             </div>
             <div id="play-area-right-bottom">
-                <h3><b>Resume: </b></h3>
+                <h3 class="container-underline"><b>Resume: </b></h3>
                 <div id="resume-container">
                     <div id="resume-items-container">
                         <p id="result"></p>

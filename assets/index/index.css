@@ -6,9 +6,9 @@
 }
 
 #header {
-    background-color: skyblue;
+    border: 2px solid;
     flex: 0 1 auto;
-    height: 150px;
+    height: 125px;
 }
 #body {
     flex: 1 1 auto;
@@ -17,18 +17,18 @@
     overflow: hidden;
 }
 #footer {
-    background-color: powderblue;
+    border: 2px solid;
     flex: 0 1 auto;
     height: 100px;
 }
 
 #left-sidebar {
-    background-color: palegreen;
+    border-left: 2px solid;
     flex: 0 1 auto;
     width: 300px;
 }
 .l-sidebar-row {
-    background-color: aquamarine;
+    background-color: darkgrey;
     text-align: center;
     font-weight: bold;
     margin: 5px;
@@ -38,18 +38,19 @@
     cursor: pointer;
 }
 .l-sidebar-title {
-    background-color: coral;
+    background-color: black;
+    color: white;
     text-align: center;
 }
 
 #panel {
-    background-color: wheat;
+    border-left: 2px solid;
+    border-right: 2px solid;
     flex: 1 1 auto;
     display: flex;
 }
 
 #centre{
-    background-color: wheat;
     flex: 1 1 auto;
     display: flex;
     position: relative;
@@ -80,6 +81,10 @@
     text-align: center;
     margin-top: 30px;
     margin-bottom: 0px;
+}
+
+.container-underline {
+    border-bottom: 1px solid;
 }
 
 .loader{

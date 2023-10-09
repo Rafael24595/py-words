@@ -1,25 +1,27 @@
 #play-area {
     margin: 30px;
-    padding: 10px;
     flex: 1 1 auto;
     display: flex;
-    background-color: violet;
+    background-color: lightgray;
+    border: 2px solid;
     overflow: hidden;
 }
 
 #play-area-left {
     margin: 0px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     flex-basis: 100%;
-    background-color: antiquewhite;
+    border-right: px solid;
 }
 
 #play-area-right {
     display: flex;
+    padding: 10px;
     flex-direction: column;
     flex-basis: 100%;
-    background-color: aquamarine;
+    border-left: 1px solid;
 }
 
 #play-area-right-top {
@@ -39,7 +41,9 @@
 
 #clues-container {
     flex: 1 1 auto;
-    background-color: azure;
+    background-color: black;
+    color: white;
+    padding: 10px;
     margin: 10px;
     height: 0px;
     overflow-y: scroll;
@@ -53,14 +57,17 @@
 
 #resume-container {
     flex: 1 1 auto;
-    background-color: azure;
+    background-color: black;
+    color: white;
+    padding: 10px;
     margin: 10px;
     height: 0px;
 }
 
 #permutation-container {
     display: flex;
-    background-color: blueviolet;
+    background-color: grey;
+    font-weight: bold;
     margin: 10px;
     padding: 10px;
     align-items: center;
@@ -96,7 +103,9 @@
 }
 
 #added-words-container {
-    background-color: cadetblue;
+    background-color: black;
+    color: white;
+    padding: 10px;
     flex: 1 1 auto;
     margin: 10px;
     height: 0px;

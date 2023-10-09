@@ -25,7 +25,7 @@
             </div>
             <div id="play-area-right">
                 <div id="result">
-                    <h3><b>Words: </b></h3>
+                    <h3 class="container-underline"><b>Words: </b></h3>
                     {% for word in words %}
                         <p class="{{'resolved-word' if word.resolved}}"> {{ word.word }} </p>
                     {% endfor %}
