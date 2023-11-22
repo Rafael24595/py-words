@@ -11,6 +11,9 @@ class soup_memory(soup):
     def __init__(self, args: dict[str, str]) -> None:
         pass
     
+    def get_word_connection(self) -> str:
+        return ""
+    
     async def generate_soup(self, configuration: str) -> soup_panel:
         file = open('assets/test/soup_output.json')
         dto = json.load(file)
