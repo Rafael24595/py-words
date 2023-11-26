@@ -1,6 +1,8 @@
 from domain.cache import cache
 from domain.dictionary import dictionary
 from domain.soup import soup
+from domain.ascii import ascii
+from infrastructure.ascii_memory import ascii_memory
 from infrastructure.cache_memory import cache_memory
 from infrastructure.dictionary_app import dictionary_app
 from infrastructure.dictionary_memory import dictionary_memory
@@ -34,3 +36,10 @@ class dependency_dictionary():
             case soup_app.NAME:
                 return soup_app(args)
         raise Exception("Dictionary service not found")
+    
+    @classmethod
+    def find_ascii(cls, code: str, args: dict[str, str]) -> ascii:
+        match code:
+            case ascii_memory.NAME:
+                return ascii_memory(args)
+        raise Exception("Ascii service not found")

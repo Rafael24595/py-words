@@ -30,6 +30,8 @@ class configurator():
         cache_instance: dictionary = dependency_dictionary.find_cache(args["SERVICE_CACHE"], args)
         dictionary_instance: dictionary = dependency_dictionary.find_dictionary(args["SERVICE_DICIONARY"], args)
         soup_instance: dictionary = dependency_dictionary.find_soup(args["SERVICE_SOUP"], args)
+        ascii_instance: dictionary = dependency_dictionary.find_ascii(args["SERVICE_ASCII"], args)
         dc.set_cache(cache_instance)
         dc.set_dictionary(dictionary_instance)
         dc.set_soup(soup_instance)
+        dc.set_ascii(ascii_instance)

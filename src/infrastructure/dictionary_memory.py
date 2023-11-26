@@ -15,4 +15,7 @@ class dictionary_memory(dictionary):
         return permutation(combo, ["CALCULATE"]) 
     
     async def find_random(self, count: int) -> list[str]:
-        return super().find_random(count)
+        mockList = []
+        for i in range(count):
+            mockList.append("Word_" + str(i))
+        return mockList

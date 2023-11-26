@@ -1,0 +1,35 @@
+<pre id="{{ image.name }}" type="{{ image.extension }}">{% for frame in image.frames %}<pre id="{{ image.name }}-{{loop.index}}" type="{{ extension }}" style="display: none;">{{ frame }}</pre>{% endfor %}</pre>
+
+<script>
+
+    var gifCode = "{{ image.name }}"
+    var delay = "{{ delay }}"
+  
+    function launchGIF() {
+        manageGIF(gifCode)
+    }
+  
+    function clean(gif) {
+      for (let i = 0; i < gif.childNodes.length; i++) {
+        gif.childNodes[i].style.display = "none";
+      }
+    }
+  
+    function manageGIF(gifCode) {
+      const gif = document.getElementById(gifCode);
+      let frame = 0;
+  
+      setInterval(function () {
+        clean(gif)
+        gif.childNodes[frame].style.display = "initial";
+        if (frame < gif.childNodes.length - 1) {
+          frame++
+        } else {
+          frame = 0
+        }
+      }, delay);
+    }
+
+    launchGIF();
+
+  </script> 

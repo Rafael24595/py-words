@@ -12,6 +12,12 @@
             "clazz": "clean-soup",
             "name": "clean-soup",
             "api": "clean-soup"
+        },
+        {
+            "id": "go-ascii",
+            "clazz": "go-ascii",
+            "name": "go-ascii",
+            "api": "go-ascii"
         }
     ]
 }

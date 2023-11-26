@@ -1,6 +1,9 @@
+import base64
+
 from typing import Any
 from fastapi import Request, Response
 from commons.optional import optional
+from starlette.datastructures import UploadFile
 
 from infrastructure.petition.i_py_petition import i_py_petition
 from infrastructure.petition.py_petition_parser import py_petition_parser
@@ -30,9 +33,28 @@ class fastapi_petition_parser(py_petition_parser):
         return self.__request
     
     async def input_json(self) -> dict[str,Any]:
-        if (await self.__request.body()).decode() == "":
-            return {}
-        return await self.__request.json()
+        try:
+            if (await self.__request.body()).decode() == "":
+                return {}
+            return await self.__request.json()
+        except:
+            return await self._parse_form_data()
+    
+    async def _parse_form_data(self) -> dict[str,Any]:
+        json: dict[str,Any] = {}
+        try:
+            formData = await self.__request._get_form()
+            items = formData.items()
+            for item in items:
+                key = item[0]
+                value = item[1]
+                if isinstance(value, UploadFile):
+                    file_content = await value.read()
+                    value = base64.b64encode(file_content).decode("utf-8")
+                json[key] = value
+        except:
+            pass
+        return json
     
     def input_params_query(self) -> dict[str,str]:
         return self.__params_query

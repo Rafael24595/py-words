@@ -2,6 +2,7 @@ from commons.optional import optional
 from domain.cache import cache
 from domain.dictionary import dictionary
 from domain.soup import soup
+from domain.ascii import ascii
 
 class dependency_container:
     
@@ -10,6 +11,7 @@ class dependency_container:
     _cache: optional[cache]
     _dictionary: optional[dictionary]
     _soup: optional[soup]
+    _ascii: optional[ascii]
     
     def __init__(self) -> None:
         self._dictionary = optional.none()
@@ -37,3 +39,9 @@ class dependency_container:
     
     def set_soup(self, instance: soup) -> None:
         self._soup = optional.some(instance)
+        
+    def get_ascii(self) -> optional[ascii]:
+        return self._ascii
+    
+    def set_ascii(self, instance: ascii) -> None:
+        self._ascii = optional.some(instance)
