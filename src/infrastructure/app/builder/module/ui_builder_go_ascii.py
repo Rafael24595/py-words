@@ -54,20 +54,37 @@ class ui_builder_go_ascii(ui_builder_module_app):
         template = self._templates.TemplateResponse(goa_ascii_components.HISTORY.value, context=context)
         petition.add_context(template)
     
-    async def __form(self, petition: i_py_petition):
-        context = {
-            'request': petition.get_request(),
-            'app': go_ascii_actions.APP.value,
-            'action_generate': go_ascii_actions.GENERATE.value,
-        }
-        template = self._templates.TemplateResponse(goa_ascii_components.FORM.value, context=context)
-        petition.add_context(template)
-        
     async def __take_all_dict(self) -> list[dict[str,Any]]:
         container: dependency_container = dependency_container.instance()
         i_ascii: ascii = container.get_ascii().unwrap()
         dtos: list[dict[str,Any]] = []
         for item in await i_ascii.takeAll(): 
+            dtos.append(item.as_dto())
+        return dtos    
+    
+    async def __take(self, petition: i_py_petition):
+        container: dependency_container = dependency_container.instance()
+        i_ascii: ascii = container.get_ascii().unwrap()
+        key = petition.input_param_query("key")
+        image = await i_ascii.take(key.unwrap())
+        await self.__build(petition, image)
+    
+    async def __form(self, petition: i_py_petition):
+        gray_scales = await self.__get_gray_scales()
+        context = {
+            'request': petition.get_request(),
+            'app': go_ascii_actions.APP.value,
+            'action_generate': go_ascii_actions.GENERATE.value,
+            'gray_scales': gray_scales
+        }
+        template = self._templates.TemplateResponse(goa_ascii_components.FORM.value, context=context)
+        petition.add_context(template)
+    
+    async def __get_gray_scales(self) -> list[dict[str,Any]]:
+        container: dependency_container = dependency_container.instance()
+        i_ascii: ascii = container.get_ascii().unwrap()
+        dtos: list[dict[str,Any]] = []
+        for item in await i_ascii.get_gray_scales(): 
             dtos.append(item.as_dto())
         return dtos
     
@@ -77,14 +94,7 @@ class ui_builder_go_ascii(ui_builder_module_app):
         form = await self.__build_ascii_form(petition)
         image = await i_ascii.generate_ascii(form)
         await self.__build(petition, image)
-        
-    async def __take(self, petition: i_py_petition):
-        container: dependency_container = dependency_container.instance()
-        i_ascii: ascii = container.get_ascii().unwrap()
-        key = petition.input_param_query("key")
-        image = await i_ascii.take(key.unwrap())
-        await self.__build(petition, image)
-        
+         
     async def __build_ascii_form(self, petition: i_py_petition) -> ascii_form:
         body: dict[str,Any] = await petition.input_json()
         code = body.get("code")

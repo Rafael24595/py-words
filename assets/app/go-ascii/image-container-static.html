@@ -1,3 +1,23 @@
-<pre id="{{ image.name }}" type="{{ image.extension }}">
-    {{ image.frames[0] }}
-</pre>
+<div id="ascii-image">
+  <div id="ascii-image-title">
+    <h2> {{ image.name }} </h2>
+  </div>
+  <div id="ascii-image-body">
+    <div id="ascii-image-body-image">
+      <pre id="{{ image.name }}" class="image-view" type="{{ image.extension }}">{{ image.frames[0] }}</pre>
+    </div>
+    <div id="ascii-image-body-data">
+      <div id="ascii-image-title">
+        <h3> Metadata </h3>
+      </div>
+      <div id="ascii-image-metadata">
+        <p><b>Name:</b> {{image.name}}</p>
+        <p><b>Extension:</b> {{image.extension}}</p>
+        <p><b>Height:</b> {{image.height}}</p>
+        <p><b>Width:</b> {{image.width}}</p>
+        <p><b>Status:</b> {{image.status}}</p>
+        <p><b>Message:</b> {{image.message}}</p>
+      </div>
+    </div>
+  </div>
+</div>

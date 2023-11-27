@@ -1,9 +1,14 @@
 from abc import ABC, abstractmethod
 
 from domain.ascii_form import ascii_form
+from domain.ascii_gray_scale import ascii_gray_scale
 from domain.ascii_image import ascii_image
 
 class ascii(ABC):
+
+    @abstractmethod
+    async def get_gray_scales(self) -> list[ascii_gray_scale]:
+        pass
 
     @abstractmethod
     async def generate_ascii(self, form: ascii_form) -> ascii_image:

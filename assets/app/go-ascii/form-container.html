@@ -33,10 +33,10 @@
             <label for="gray_scale" title="Gray scale">
                 GrayScale:
                 <br>
-                <select id="gray_scale" name="gray_scale" value="">$
-                    <option value="SOUP_CAHOS_HARD">SOUP_CAHOS_HARD</option>
-                    <option value="SOUP_CAHOS_SOFT">SOUP_CAHOS_SOFT</option>
-                    <option value="DEFAULT" selected="">DEFAULT</option>
+                <select id="gray_scale" name="gray_scale" value="">
+                    {% for gray_scale in gray_scales %}                
+                        <option value="{{ gray_scale.id }}">{{ gray_scale.description }}</option>
+                    {% endfor %}
                 </select><br>
             </label>       
         </div>
@@ -44,11 +44,31 @@
             <label for="image" title="Allowed formats: *.jpg, *.png, *.gif">
                 Image:
                 <br>
-                <input type="file" id="image" name="image" value=""><br><br>
+                <input type="file" id="image" name="image" value="" onchange="updatePreview(event)"><br><br>
             </label>
+        </div>
+        <div class="ascii-form-panel-row">
+            <div id="ascii-form-image-preview-container">
+                <img id="ascii-form-image-preview" src="" alt="">
+            </div>
         </div>
     </div>
     <div id="play-area-footer">
         <button id="valide-button" hx-post="/app/{{ app }}/{{ action_generate }}" hx-target="#ascii-body" hx-indicator=".loader">Confirm</button>
     </div>
 </form>
+
+<script>
+
+    function updatePreview(event) {
+        let files = event.target.files
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                document.getElementById("ascii-form-image-preview").src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
+        }
+    }
+
+</script>

@@ -4,7 +4,7 @@
 <div id="ascii-images-container">
     {% for image in images %}
     <div class="ascii-image-reference-container">
-        <p class="ascii-image-reference" hx-get="/app/{{ app }}/{{ action_find }}?key={{ image.name }}" hx-target="#ascii-body" hx-indicator=".loader"> {{ image.name }} </p>
+        <p class="ascii-image-reference" title="{{ image.name }}-[{{ image.extension }}]" hx-get="/app/{{ app }}/{{ action_find }}?key={{ image.name }}" hx-target="#ascii-body" hx-indicator=".loader"> {{ image.name }} </p>
     </div>
     {% endfor %}
 </div>

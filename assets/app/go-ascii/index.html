@@ -4,7 +4,7 @@
     <div id="void-container"></div>
     <div id="play-area">
         <div id="play-area-body">
-            <div id="ascii-left-sidebar" hx-trigger="load" hx-get="/app/{{ app }}/{{ action_history }}">
+            <div id="ascii-left-sidebar" hx-trigger="load, every 5s" hx-get="/app/{{ app }}/{{ action_history }}">
             </div>
             <div id="ascii-body">
             </div>
