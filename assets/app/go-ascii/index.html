@@ -4,20 +4,7 @@
     <div id="void-container"></div>
     <div id="play-area">
         <div id="play-area-body">
-            <div id="ascii-left-sidebar">
-                <div id="ascii-history-title">
-                    <h3> History </h3>
-                  </div>
-                <div id="ascii-images-container">
-                    {% for image in images %}
-                    <div class="ascii-image-reference-container">
-                        <p class="ascii-image-reference" hx-get="/app/{{ app }}/{{ action_find }}?key={{ image.name }}" hx-target="#ascii-body" hx-indicator=".loader"> {{ image.name }} </p>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div id="ascii-buttons-container">
-                    <button hx-get="/app/{{ app }}/{{ action_form }}" hx-target="#ascii-body" hx-indicator=".loader" class="l-sidebar-row-title">Upload</button>
-                </div>
+            <div id="ascii-left-sidebar" hx-trigger="load" hx-get="/app/{{ app }}/{{ action_history }}">
             </div>
             <div id="ascii-body">
             </div>

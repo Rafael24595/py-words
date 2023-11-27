@@ -23,6 +23,8 @@ class ui_builder_go_ascii(ui_builder_module_app):
     
     async def execute(self, action: str, petition: i_py_petition):
         match(action):
+            case go_ascii_actions.HISTORY.value:
+                return await self.__history(petition)
             case go_ascii_actions.FORM.value:
                 return await self.__form(petition)
             case go_ascii_actions.FIND.value:
@@ -32,7 +34,16 @@ class ui_builder_go_ascii(ui_builder_module_app):
         return None
     
     async def __index(self, petition: i_py_petition):
-        images = await self.__take_all_dict(petition)
+        context = {
+            'request': petition.get_request(),
+            'app': go_ascii_actions.APP.value,
+            'action_history': go_ascii_actions.HISTORY.value,
+        }
+        template = self._templates.TemplateResponse(goa_ascii_components.INDEX.value, context=context)
+        petition.add_context(template)
+        
+    async def __history(self, petition: i_py_petition):
+        images = await self.__take_all_dict()
         context = {
             'request': petition.get_request(),
             'app': go_ascii_actions.APP.value,
@@ -40,21 +51,19 @@ class ui_builder_go_ascii(ui_builder_module_app):
             'action_find': go_ascii_actions.FIND.value,
             'action_form': go_ascii_actions.FORM.value,
         }
-        template = self._templates.TemplateResponse(goa_ascii_components.INDEX.value, context=context)
+        template = self._templates.TemplateResponse(goa_ascii_components.HISTORY.value, context=context)
         petition.add_context(template)
     
     async def __form(self, petition: i_py_petition):
-        images = await self.__take_all_dict(petition)
         context = {
             'request': petition.get_request(),
             'app': go_ascii_actions.APP.value,
-            'images': images,
             'action_generate': go_ascii_actions.GENERATE.value,
         }
         template = self._templates.TemplateResponse(goa_ascii_components.FORM.value, context=context)
         petition.add_context(template)
         
-    async def __take_all_dict(self, petition: i_py_petition) -> list[dict[str,Any]]:
+    async def __take_all_dict(self) -> list[dict[str,Any]]:
         container: dependency_container = dependency_container.instance()
         i_ascii: ascii = container.get_ascii().unwrap()
         dtos: list[dict[str,Any]] = []
