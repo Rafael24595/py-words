@@ -1,51 +1,26 @@
 <div id="app-container">
-    <link rel="stylesheet" href="{{ url_for('assets', path='/app/clean-soup/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('assets', path='/app/go-ascii/index.css') }}">
     <h1 id="app-title"> {{ app }} </h1>
     <div id="void-container"></div>
-    <form id="play-area" hx-encoding='multipart/form-data'>
+    <div id="play-area">
         <div id="play-area-body">
-            <div id="ascii-form">
-                <div id="form-title">
-                    <h2>Ascii parameters: </h2>
+            <div id="ascii-left-sidebar">
+                <div id="ascii-history-title">
+                    <h3> History </h3>
+                  </div>
+                <div id="ascii-images-container">
+                    {% for image in images %}
+                    <div class="ascii-image-reference-container">
+                        <p class="ascii-image-reference" hx-get="/app/{{ app }}/{{ action_find }}?key={{ image.name }}" hx-target="#ascii-body" hx-indicator=".loader"> {{ image.name }} </p>
+                    </div>
+                    {% endfor %}
                 </div>
-                <div id="form-panel">
-                    <label for="code" title="Identifier">
-                        Code:
-                        <input type="text" id="code" name="code" value=""><br>
-                    </label>
-                    <br>
-                    <label for="height" title="If the height value equals zero the image will maintain aspect ratio">
-                        Height:
-                        <input type="number" id="height" name="height" value=""><br>
-                    </label>
-                    <br>
-                    <label for="width" title="If the width value equals zero the image will maintain aspect ratio">
-                        <input type="number" id="width" name="width" value=""><br>
-                        Width:
-                    </label>
-                    <br>
-                    <label for="sw_width_fix" title="Increase the width value to maintain the visual aspect ratio">
-                        Width fix:
-                        <select id="sw_width_fix" name="sw_width_fix" value="">
-                            <option value="true">ENABLED</option>
-                            <option value="false">DISABLED</option>
-                        </select>
-                    </label>
-                    <br>
-                    <label for="gray_scale" title="Gray scale">
-                        GrayScale:
-                        <select id="gray_scale" name="gray_scale" value="">$GRAYSCALES</select><br>
-                    </label>
-                    <br>
-                    <label for="image" title="Allowed formats: *.jpg, *.png, *.gif">
-                        * Image:
-                        <input type="file" id="image" name="image" value=""><br><br>
-                    </label>
+                <div id="ascii-buttons-container">
+                    <button hx-get="/app/{{ app }}/{{ action_form }}" hx-target="#ascii-body" hx-indicator=".loader" class="l-sidebar-row-title">Upload</button>
                 </div>
             </div>
+            <div id="ascii-body">
+            </div>
         </div>
-        <div id="play-area-footer">
-            <button id="valide-button" hx-post="/app/{{ app }}/{{ action_panel }}" hx-target="#panel" hx-indicator=".loader">Confirm</button>
-        </div>
-    </form>
+    </div>
 </div>

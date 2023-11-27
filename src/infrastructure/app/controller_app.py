@@ -20,6 +20,7 @@ class controller_app(abstract_controller):
         )
         self.__router.add_api_route("/{code}", self._load_app, methods=["GET"], response_class=HTMLResponse)
         self.__router.add_api_route("/{code}/{action}", self._execute, methods=["POST"], response_class=HTMLResponse)
+        self.__router.add_api_route("/{code}/{action}", self._execute, methods=["GET"], response_class=HTMLResponse)
         
     def router(self) -> APIRouter:
         return self.__router

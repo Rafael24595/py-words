@@ -19,7 +19,10 @@ class ascii_memory(ascii):
             dto["frames"])
     
     async def take(self, key: str) -> ascii_image:
-        return self.generate_ascii("")
+        return await self.generate_ascii("")
     
     async def takeAll(self) -> list[ascii_image]:
-        return [self.generate_ascii("")]
+        images: list[ascii_image] = []
+        for _ in range(3):
+            images.append(await self.generate_ascii(""))
+        return images

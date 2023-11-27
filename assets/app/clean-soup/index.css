@@ -26,7 +26,7 @@
 #play-area {
   display: flex;
   flex-direction: column;
-  margin: 30px;
+  margin: 20px;
   flex: 1 1 auto;
   background-color: lightgray;
   border: 2px solid;

@@ -1,0 +1,153 @@
+#play-area {
+    margin: 20px;
+    flex: 1 1 auto;
+    display: flex;
+    background-color: lightgray;
+    border: 2px solid;
+    overflow: hidden;
+}
+
+#play-area-body {
+    display: flex;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+#ascii-left-sidebar {
+    display: flex;
+    flex: 0 1 auto;
+    overflow: hidden;
+    flex-direction: column;
+    min-width: 175px;
+    width: 175px;
+    border-right: 1px solid black;
+}
+
+#ascii-history-title {
+    border-bottom: 1px solid black;
+    text-align: center;
+    margin: 5px;
+}
+
+#ascii-history-title h3 {
+    margin: 5px;
+}
+
+#ascii-images-container {
+    direction: rtl;
+    display: flex;
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    flex-direction: column;
+}
+
+.ascii-image-reference-container {
+    margin: 5px;
+    padding: 5px;
+    background-color: darkgray;
+}
+
+.ascii-image-reference {
+    direction: initial;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#form-title {
+    border-bottom: 1px solid black;
+    margin-bottom: 25px;
+}
+
+#form-panel {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#ascii-body {
+    display: flex;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+#ascii-form {
+    display: flex;
+    flex: 1 1 auto;
+    overflow: hidden;
+    flex-direction: column;
+    margin-bottom: 0px;
+}
+
+#ascii-form-title {
+    border-bottom: 1px solid black;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#ascii-image-title {
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+#ascii-form-panel {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.ascii-form-panel-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+}
+
+#ascii-image {
+    display: flex;
+    flex: 1 1 auto;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+#ascii-image-body {
+    display: flex;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+#ascii-image-body-image {
+    background-color: white;
+    border: 1px solid;
+    margin: 15px;
+    font-size: 0.70em;
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+#ascii-image-body-data {
+    width: 185px;
+    border-left: 1px solid black;
+    padding: 10px;
+}
+
+#play-area-footer, #ascii-buttons-container {
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    justify-content: center;
+    background-color: black;
+}
+
+.image-view {
+    margin: 0px;
+}
+
+#ascii-delay-input {
+    width: 100px;
+}

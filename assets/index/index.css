@@ -8,7 +8,8 @@
 #header {
     border: 2px solid;
     flex: 0 1 auto;
-    height: 125px;
+    min-height: 100px;
+    height: 100px;
 }
 #body {
     flex: 1 1 auto;
@@ -19,13 +20,13 @@
 #footer {
     border: 2px solid;
     flex: 0 1 auto;
-    height: 100px;
+    height: 85px;
 }
 
 #left-sidebar {
     border-left: 2px solid;
     flex: 0 1 auto;
-    width: 300px;
+    width: 275px;
 }
 .l-sidebar-row {
     background-color: darkgrey;
@@ -79,7 +80,7 @@
 
 #app-title {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 0px;
 }
 

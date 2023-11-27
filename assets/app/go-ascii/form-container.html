@@ -1,0 +1,54 @@
+<form id="ascii-form" hx-encoding='multipart/form-data'>
+    <div id="ascii-form-title">
+        <h2>Ascii parameters</h2>
+    </div>
+    <div id="ascii-form-panel">
+        <div class="ascii-form-panel-row">
+            <label for="code" title="Identifier">
+                Code:
+                <br>
+                <input type="text" id="code" name="code" value=""><br>
+            </label>
+            <label for="height" title="If the height value equals zero the image will maintain aspect ratio">
+                Height: 
+                <br>
+                <input type="number" id="height" name="height" value=""><br>
+            </label>
+            <label for="width" title="If the width value equals zero the image will maintain aspect ratio">
+                Width:
+                <br>
+                <input type="number" id="width" name="width" value=""><br>
+            </label>
+        </div>
+        <div class="ascii-form-panel-row">
+            <label for="sw_width_fix" title="Increase the width value to maintain the visual aspect ratio">
+                Width fix:
+                <br>
+                <select id="sw_width_fix" name="sw_width_fix" value="">
+                    <option value="true">ENABLED</option>
+                    <option value="false">DISABLED</option>
+                </select>
+            </label>
+            <br>
+            <label for="gray_scale" title="Gray scale">
+                GrayScale:
+                <br>
+                <select id="gray_scale" name="gray_scale" value="">$
+                    <option value="SOUP_CAHOS_HARD">SOUP_CAHOS_HARD</option>
+                    <option value="SOUP_CAHOS_SOFT">SOUP_CAHOS_SOFT</option>
+                    <option value="DEFAULT" selected="">DEFAULT</option>
+                </select><br>
+            </label>       
+        </div>
+        <div class="ascii-form-panel-row">
+            <label for="image" title="Allowed formats: *.jpg, *.png, *.gif">
+                Image:
+                <br>
+                <input type="file" id="image" name="image" value=""><br><br>
+            </label>
+        </div>
+    </div>
+    <div id="play-area-footer">
+        <button id="valide-button" hx-post="/app/{{ app }}/{{ action_generate }}" hx-target="#ascii-body" hx-indicator=".loader">Confirm</button>
+    </div>
+</form>

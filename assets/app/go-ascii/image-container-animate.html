@@ -1,14 +1,44 @@
-<pre id="{{ image.name }}" type="{{ image.extension }}">{% for frame in image.frames %}<pre id="{{ image.name }}-{{loop.index}}" type="{{ extension }}" style="display: none;">{{ frame }}</pre>{% endfor %}</pre>
+<div id="ascii-image">
+  <div id="ascii-image-title">
+    <h2> {{ image.name }} </h2>
+  </div>
+  <div id="ascii-image-body">
+    <div id="ascii-image-body-image">
+      <pre id="{{ image.name }}" class="image-view" type="{{ image.extension }}">{% for frame in image.frames %}<pre id="{{ image.name }}-{{loop.index}}" type="{{ extension }}" style="display: none;">{{ frame }}</pre>{% endfor %}</pre>
+    </div>
+    <div id="ascii-image-body-data">
+      <div id="ascii-image-title">
+        <h3> Metadata </h3>
+      </div>
+      <div id="ascii-image-metadata">
+        <p><b>Name:</b> {{image.name}}</p>
+        <p><b>Extension:</b> {{image.extension}}</p>
+        <p><b>Height:</b> {{image.height}}</p>
+        <p><b>Width:</b> {{image.width}}</p>
+        <p><b>Status:</b> {{image.status}}</p>
+        <p><b>Message:</b> {{image.message}}</p>
+        <p><b>Delay:</b> <input id="ascii-delay-input" type="number" value="{{ delay }}" onchange="updateDelay(event)"></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 
-    var gifCode = "{{ image.name }}"
-    var delay = "{{ delay }}"
+    var gifCode = "{{ image.name }}";
+    var delay = "{{ delay }}";
+    var interval = undefined;
   
     function launchGIF() {
+        clearInterval(interval);
         manageGIF(gifCode)
     }
   
+    function updateDelay(event) {
+      delay = event.target.value;
+      launchGIF()
+    }
+
     function clean(gif) {
       for (let i = 0; i < gif.childNodes.length; i++) {
         gif.childNodes[i].style.display = "none";
@@ -18,8 +48,7 @@
     function manageGIF(gifCode) {
       const gif = document.getElementById(gifCode);
       let frame = 0;
-  
-      setInterval(function () {
+      interval = setInterval(function () {
         clean(gif)
         gif.childNodes[frame].style.display = "initial";
         if (frame < gif.childNodes.length - 1) {
