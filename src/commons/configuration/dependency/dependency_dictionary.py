@@ -1,8 +1,11 @@
+from domain.ascii_persistence import ascii_persistence
 from domain.cache import cache
 from domain.dictionary import dictionary
 from domain.soup import soup
 from domain.ascii import ascii
+from infrastructure.ascii_app import ascii_app
 from infrastructure.ascii_memory import ascii_memory
+from infrastructure.ascii_persistence_memory import ascii_persistence_memory
 from infrastructure.cache_memory import cache_memory
 from infrastructure.dictionary_app import dictionary_app
 from infrastructure.dictionary_memory import dictionary_memory
@@ -42,4 +45,13 @@ class dependency_dictionary():
         match code:
             case ascii_memory.NAME:
                 return ascii_memory(args)
+            case ascii_app.NAME:
+                return ascii_app(args)
         raise Exception("Ascii service not found")
+    
+    @classmethod
+    def find_ascii_persistence(cls, code: str, args: dict[str, str]) -> ascii_persistence:
+        match code:
+            case ascii_persistence_memory.NAME:
+                return ascii_persistence_memory(args)
+        raise Exception("Ascii persistence service not found")

@@ -15,3 +15,7 @@ class ascii_form:
         self.__sw_width_fix = sw_width_fix
         self.__gray_scale = gray_scale
         self.__image = image
+        
+    def to_dict(self):
+        return {"code": self.__code, "height": self.__height, "width": self.__width, 
+            "sw_width_fix": self.__sw_width_fix, "gray_scale": self.__gray_scale, "image": self.__image}

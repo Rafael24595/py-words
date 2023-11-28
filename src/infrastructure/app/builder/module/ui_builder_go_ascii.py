@@ -67,7 +67,8 @@ class ui_builder_go_ascii(ui_builder_module_app):
         i_ascii: ascii = container.get_ascii().unwrap()
         key = petition.input_param_query("key")
         image = await i_ascii.take(key.unwrap())
-        await self.__build(petition, image)
+        ## TODO: Uncontrolled optional unwrap.
+        await self.__build(petition, image.unwrap())
     
     async def __form(self, petition: i_py_petition):
         gray_scales = await self.__get_gray_scales()

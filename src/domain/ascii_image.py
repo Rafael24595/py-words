@@ -21,6 +21,9 @@ class ascii_image:
         self.__message = message
         self.__frames = frames
         
+    def name(self) -> int:
+        return self.__name
+        
     def is_animation(self) -> int:
         return len(self.__frames) > 1
         

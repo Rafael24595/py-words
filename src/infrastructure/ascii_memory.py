@@ -1,9 +1,11 @@
 import json
+from commons.optional import optional
 
 from domain.ascii import ascii
 from domain.ascii_form import ascii_form
 from domain.ascii_gray_scale import ascii_gray_scale
 from domain.ascii_image import ascii_image
+from domain.ascii_persistence import ascii_persistence
 
 class ascii_memory(ascii):
 
@@ -12,6 +14,9 @@ class ascii_memory(ascii):
     
     def __init__(self, *args: dict[str, str]) -> None:
         self.__count = 0
+
+    def enablePersistence(self, persistence: ascii_persistence):
+        pass
 
     async def get_gray_scales(self) -> list[ascii_gray_scale]:
         return [ascii_gray_scale("DEFAULT", "DEFAULT"), 
@@ -30,8 +35,8 @@ class ascii_memory(ascii):
             dto["width"], dto["status"], dto["message"], 
             dto["frames"])
     
-    async def take(self, key: str) -> ascii_image:
-        return await self.generate_ascii("")
+    async def take(self, key: str) -> optional[ascii_image]:
+        return optional.some(await self.generate_ascii(""))
     
     async def takeAll(self) -> list[ascii_image]:
         images: list[ascii_image] = []
