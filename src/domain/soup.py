@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from domain.soup_panel.soup_panel import soup_panel
+from domain.structure.soup.soup_panel import soup_panel
 
 class soup(ABC):
 

@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 from commons.optional import optional
 
-from domain.ascii_form import ascii_form
-from domain.ascii_gray_scale import ascii_gray_scale
-from domain.ascii_image import ascii_image
+from domain.structure.ascii.ascii_form import ascii_form
+from domain.structure.ascii.ascii_gray_scale import ascii_gray_scale
+from domain.structure.ascii.ascii_image import ascii_image
 from domain.ascii_persistence import ascii_persistence
 
 class ascii(ABC):

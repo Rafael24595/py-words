@@ -1,10 +1,9 @@
-import threading
-from typing import Any, TypeVar
+from typing import TypeVar
 
 from commons.configuration.dependency.dependency_container import dependency_container
 from commons.optional import optional
 from domain.cache import cache
-from domain.cache_event import cache_event
+from domain.structure.cache_event import cache_event
 
 T = TypeVar('T')
 

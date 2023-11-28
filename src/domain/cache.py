@@ -3,7 +3,7 @@ from typing import Any
 from abc import ABC, abstractmethod
 
 from commons.optional import optional
-from domain.cache_event import cache_event
+from domain.structure.cache_event import cache_event
 
 class cache(ABC):
 

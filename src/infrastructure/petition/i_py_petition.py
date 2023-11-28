@@ -3,8 +3,8 @@ from typing import Any
 from commons.constants.k_cookie import k_cookie
 from commons.optional import optional
 from commons.session.session import session
-from domain.cookie import cookie
-from domain.header import header
+from domain.structure.cookie import cookie
+from domain.structure.header import header
 
 class i_py_petition(ABC):
         

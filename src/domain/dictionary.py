@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from domain.permutation import permutation
+from domain.structure.dictionary.permutation import permutation
 
 class dictionary(ABC):
 

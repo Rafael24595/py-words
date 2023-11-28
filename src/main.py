@@ -4,8 +4,8 @@ import uvicorn
 from fastapi import FastAPI
 
 from commons.configuration.configurator import configurator
-from infrastructure.index.controller_index import controller_index 
-from infrastructure.app.controller_app import controller_app
+from infrastructure.controller.index.controller_index import controller_index 
+from infrastructure.controller.app.controller_app import controller_app
 
 app = FastAPI()
 

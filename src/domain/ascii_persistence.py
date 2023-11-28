@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 from commons.optional import optional
 
-from domain.ascii_form import ascii_form
-from domain.ascii_image import ascii_image
+from domain.structure.ascii.ascii_image import ascii_image
 
 class ascii_persistence(ABC):
 

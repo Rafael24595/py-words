@@ -3,14 +3,14 @@ from domain.cache import cache
 from domain.dictionary import dictionary
 from domain.soup import soup
 from domain.ascii import ascii
-from infrastructure.ascii_app import ascii_app
-from infrastructure.ascii_memory import ascii_memory
-from infrastructure.ascii_persistence_memory import ascii_persistence_memory
-from infrastructure.cache_memory import cache_memory
-from infrastructure.dictionary_app import dictionary_app
-from infrastructure.dictionary_memory import dictionary_memory
-from infrastructure.soup_app import soup_app
-from infrastructure.soup_memory import soup_memory
+from infrastructure.service.ascii.ascii_app import ascii_app
+from infrastructure.service.ascii.ascii_memory import ascii_memory
+from infrastructure.service.ascii.persistence.ascii_persistence_memory import ascii_persistence_memory
+from infrastructure.service.cache.cache_memory import cache_memory
+from infrastructure.service.dictionary.dictionary_app import dictionary_app
+from infrastructure.service.dictionary.dictionary_memory import dictionary_memory
+from infrastructure.service.soup.soup_app import soup_app
+from infrastructure.service.soup.soup_memory import soup_memory
 
 class dependency_dictionary():
     
